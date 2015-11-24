@@ -27,5 +27,10 @@ public class MainController {
 		return "detail";
 	}
 	
+	@RequestMapping( value="/help")
+	public String helpPage(){
+		return "help";
+	}	
+	
 	
 }
