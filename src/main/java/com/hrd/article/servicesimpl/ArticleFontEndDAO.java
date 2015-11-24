@@ -32,54 +32,30 @@ public class ArticleFontEndDAO implements ArticleFrontEndService{
 		int limit = ( page * 10 );
 		System.err.println("limit"+limit+"page"+page+"key"+key+"cate"+category+"User"+user);
 		if(key.equals("*")){
-			key="%";
-			if(category==0 && user==0){
-				
-				return jdbcTemplate.query("SELECT * FROM tbnews n LEFT JOIN tbuser u ON n.nuid=u.uid LEFT JOIN tbcategory c ON c.cid=n.ncid WHERE UPPER(n.ntitle) LIKE UPPER(?) ORDER BY n.nid LIMIT ? ",
-						   new Object[]{"%"+key+"%", limit}, new ArticleMapper());
-			}else if(category!=0 && user==0){
-				System.err.println("category !=0 && user==0");
-				return jdbcTemplate.query("SELECT * FROM tbnews n LEFT JOIN tbcategory c ON c.cid=n.ncid "
-							+"LEFT JOIN tbuser u on n.nuid=u.uid "
-							+"WHERE UPPER(n.ntitle) LIKE UPPER(?) and n.ncid=?   ORDER BY n.nid limit ? ",
-						   new Object[]{"%"+key+"%",category, limit}, new ArticleMapper());
-			}
-			else if(category==0 && user!=0){
-				return jdbcTemplate.query("SELECT * FROM tbnews n LEFT JOIN tbcategory c ON c.cid=n.ncid "
+			key="%";	
+		}
+		if(category==0 && user==0){
+			
+			return jdbcTemplate.query("SELECT * FROM tbnews n LEFT JOIN tbuser u ON n.nuid=u.uid LEFT JOIN tbcategory c ON c.cid=n.ncid WHERE UPPER(n.ntitle) LIKE UPPER(?) ORDER BY n.nid LIMIT ? ",
+					   new Object[]{"%"+key+"%", limit}, new ArticleMapper());
+		}else if(category!=0 && user==0){
+			System.err.println("category !=0 && user==0");
+			return jdbcTemplate.query("SELECT * FROM tbnews n LEFT JOIN tbcategory c ON c.cid=n.ncid "
 						+"LEFT JOIN tbuser u on n.nuid=u.uid "
-						+"WHERE UPPER(n.ntitle) LIKE UPPER(?) and n.nuid=?   ORDER BY n.nid limit ? ",
-					   new Object[]{"%"+key+"%",user, limit}, new ArticleMapper());
-			}
-			else if(category!=0 && user!=0){
-				return jdbcTemplate.query("SELECT * FROM tbnews n LEFT JOIN tbcategory c ON c.cid=n.ncid "
-						+"LEFT JOIN tbuser u on n.nuid=u.uid "
-						+"WHERE UPPER(n.ntitle) LIKE UPPER(?) and n.nuid=? and n.ncid=?   ORDER BY n.nid limit ? ",
-					   new Object[]{"%"+key+"%",user,category, limit}, new ArticleMapper());
-			}
-		}else{
-			if(category==0 && user==0){
-				
-				return jdbcTemplate.query("SELECT * FROM tbnews n LEFT JOIN tbuser u ON n.nuid=u.uid LEFT JOIN tbcategory c ON c.cid=n.ncid WHERE UPPER(n.ntitle) LIKE UPPER(?) ORDER BY n.nid LIMIT ? ",
-						   new Object[]{"%"+key+"%", limit}, new ArticleMapper());
-			}else if(category!=0 && user==0){
-				System.err.println("category !=0 && user==0");
-				return jdbcTemplate.query("SELECT * FROM tbnews n LEFT JOIN tbcategory c ON c.cid=n.ncid "
-							+"LEFT JOIN tbuser u on n.nuid=u.uid "
-							+"WHERE UPPER(n.ntitle) LIKE UPPER(?) and n.ncid=?   ORDER BY n.nid limit ? ",
-						   new Object[]{"%"+key+"%",category, limit}, new ArticleMapper());
-			}
-			else if(category==0 && user!=0){
-				return jdbcTemplate.query("SELECT * FROM tbnews n LEFT JOIN tbcategory c ON c.cid=n.ncid "
-						+"LEFT JOIN tbuser u on n.nuid=u.uid "
-						+"WHERE UPPER(n.ntitle) LIKE UPPER(?) and n.nuid=?   ORDER BY n.nid limit ? ",
-					   new Object[]{"%"+key+"%",user, limit}, new ArticleMapper());
-			}
-			else if(category!=0 && user!=0){
-				return jdbcTemplate.query("SELECT * FROM tbnews n LEFT JOIN tbcategory c ON c.cid=n.ncid "
-						+"LEFT JOIN tbuser u on n.nuid=u.uid "
-						+"WHERE UPPER(n.ntitle) LIKE UPPER(?) and n.nuid=? and n.ncid=?   ORDER BY n.nid limit ? ",
-					   new Object[]{"%"+key+"%",user,category, limit}, new ArticleMapper());
-			}
+						+"WHERE UPPER(n.ntitle) LIKE UPPER(?) and n.ncid=?   ORDER BY n.nid limit ? ",
+					   new Object[]{"%"+key+"%",category, limit}, new ArticleMapper());
+		}
+		else if(category==0 && user!=0){
+			return jdbcTemplate.query("SELECT * FROM tbnews n LEFT JOIN tbcategory c ON c.cid=n.ncid "
+					+"LEFT JOIN tbuser u on n.nuid=u.uid "
+					+"WHERE UPPER(n.ntitle) LIKE UPPER(?) and n.nuid=?   ORDER BY n.nid limit ? ",
+				   new Object[]{"%"+key+"%",user, limit}, new ArticleMapper());
+		}
+		else if(category!=0 && user!=0){
+			return jdbcTemplate.query("SELECT * FROM tbnews n LEFT JOIN tbcategory c ON c.cid=n.ncid "
+					+"LEFT JOIN tbuser u on n.nuid=u.uid "
+					+"WHERE UPPER(n.ntitle) LIKE UPPER(?) and n.nuid=? and n.ncid=?   ORDER BY n.nid limit ? ",
+				   new Object[]{"%"+key+"%",user,category, limit}, new ArticleMapper());
 		}
 		
 		return null;
