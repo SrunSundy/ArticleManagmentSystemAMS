@@ -137,12 +137,12 @@ public class ArticleAPI {
 		
 		Map<String, Object> map  = new HashMap<String, Object>();
 		if(articleservice.toggleArticle(id)==1){
-			map.put("MESSAGE","ARTICLE IS ENABLED");
+			map.put("MESSAGE","STATUS IS CHANGED");
 			map.put("STATUS", HttpStatus.OK.value());
 			return new ResponseEntity<Map<String,Object>>
 								(map, HttpStatus.OK);
 		}else{
-			map.put("MESSAGE","FAIL TO ENABLE");
+			map.put("MESSAGE","FAIL TO CHANGE STATUS");
 			map.put("STATUS", HttpStatus.NOT_FOUND.value());
 			return new ResponseEntity<Map<String,Object>>
 								(map, HttpStatus.NOT_FOUND);
