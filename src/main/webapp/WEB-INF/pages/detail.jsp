@@ -75,7 +75,7 @@
 				$scope.navCategory = [];
 				
 				$scope.loadCategories = function(){
-					$http.get('../category/listcategory').success(function (response) {
+					$http.get('../api/category/').success(function (response) {
 				    	angular.forEach(response.RESPONSE_DATA, function(data, key) {
 				    		  $scope.categories.push(data);
 				    		  if(key<5)
@@ -83,7 +83,7 @@
 				    	});
 				    });
 				};
-				$http.get('../admin/listarticle/${articleid}').success(function (response) {
+				$http.get('../api/article/${articleid}').success(function (response) {
 					var data = response.RESPONSE_DATA;
 		    		$scope.article = {
 						title: data.title,
@@ -98,7 +98,7 @@
 				$scope.loadPopulars = function(){
 					$http({
                         method: "POST",
-                        url: "../admin/listarticles",
+                        url: "../api/article/listarticles",
                         params: {
                             key: "",
                             page:1,
