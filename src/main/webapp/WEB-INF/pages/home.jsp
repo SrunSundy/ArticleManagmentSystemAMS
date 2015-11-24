@@ -85,14 +85,13 @@
 				$scope.populars = [];
 				$scope.navCategory = [];
 				
-				
 				$scope.uid = 0;
 				$scope.cid = 0;
 				$scope.page = 0;
 				$scope.key = "";
 				
 				$scope.loadCategories = function(){
-					$http.get('category/listcategory').success(function (response) {
+					$http.get('api/category/').success(function (response) {
 				    	angular.forEach(response.RESPONSE_DATA, function(data, key) {
 				    		  $scope.categories.push(data);
 				    		  if(key<5)
@@ -105,7 +104,7 @@
 					$scope.page += 1;
 					$http({
                         method: "POST",
-                        url: "admin/listarticles",
+                        url: "api/article/listarticle",
                         params: {
                             key: $scope.key,
                             page:$scope.page,
@@ -114,7 +113,7 @@
                         }
                     })
                     .success(function (response) {
-                    	if(response.RESPONSE_DATA.length==0){
+                    	if(response.STATUS == "404"){
                     		console.log('no more article..!');
 							return;                    		
                     	}
@@ -141,7 +140,7 @@
 				$scope.loadPopulars = function(){
 					$http({
                         method: "POST",
-                        url: "admin/listarticles",
+                        url: "api/article/listarticle",
                         params: {
                             key: "",
                             page:1,
@@ -185,7 +184,7 @@
 					$scope.articles = [];
 					
 					$scope.loadArticles();
-				}
+				};
 			});
 		
 		</script>

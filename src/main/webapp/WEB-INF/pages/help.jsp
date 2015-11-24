@@ -36,17 +36,17 @@
 			}
 			
 			td label{
-				background-color:#43A047;
+				background-color:blue;
 				padding:0px 10px;
 			}
 			
 			th{
 				color:#fff;
-				background-color:#43A047;
+				background-color:blue;
 			}
 			
 			button{
-				background-color:#43A047;
+				background-color:blue;
 				color:#fff;
 				cursor:pointer;
 			}
@@ -55,7 +55,7 @@
 				font-size:20px;
 				color:red;
 				float:right;
-				background-color:#43A047;
+				background-color:blue;
 				color:#fff;
 				padding: 0px 5px 3px 5px;;
 			}
@@ -72,22 +72,20 @@
 			.a-row > pre{
 				text-align:center;
 				font-size:30px;
-				color :#43A047;
-				border-bottom: 1px solid #43A047;
+				color :blue;
+				border-bottom: 1px solid blue;
 			}
 			
 			.action-url{
 				margin-bottom: 10px;
+				align:center;
 			}
 			
-			.action-url select{
-				width: 10%;
-			}
 			.action-url input{
-				width: 84%;
+				width: 80%;
 			}
 			.action-url button{
-				width: 5%;
+				padding: 5px 10px;
 			}
 			.action-url label{
 				background-color:#fff;
@@ -106,7 +104,7 @@
 			}
 			.button button{
 				padding: 5px;
-				background-color: #43A047;
+				background-color: blue;
 				color:#fff;
 				cursor:pointer;
 			}
