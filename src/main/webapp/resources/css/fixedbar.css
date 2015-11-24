@@ -1,0 +1,25 @@
+
+
+
+	div.mybox{
+			border-radius:0;
+		
+		}
+		i.iconstyle{
+			margin-top: 15px;
+			color:white;
+		}
+		h4.textdash{
+			color:white;
+			text-align:center;
+		}
+		div.mybox:hover .iconstyle,div.mybox:hover .textdash{
+		
+			opacity: 0.8;
+		}
+	
+		p.stutext{
+			color: white;
+			font-weight: bold;
+		}
+		

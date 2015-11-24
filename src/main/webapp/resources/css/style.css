@@ -1,0 +1,306 @@
+@font-face {
+	font-family: handWriting;
+	src: url(../fonts/handwrite.ttf);
+}
+
+.jar {
+	background: #43A047;
+	border-radius: 0;
+	border-bottom: 4px solid #388E3C;
+}
+
+.myheadtext {
+	color: white;
+}
+
+i.menu-icon {
+	margin: 0;
+	color: white;
+}
+.mylabel{
+	font-weight: bold;
+	font-style:italic;
+	color:#757575;
+}
+.style-wrapper{
+	background:#FFFFFF; 
+	padding-bottom:15px;
+	border-top:5px solid #4CAF50;
+	min-height: 580px;
+	margin-bottom: 20px;
+}
+.myrow{
+	 color:#616161;
+}
+a.text-menu {
+	margin-right: 20px;
+}
+
+a.box-menu {
+	border-right: 1px solid #388E3C;
+	border-left: 1px solid #388E3C;
+}
+
+a.box-menu:hover {
+	opacity: 0.8;
+}
+
+@media ( max-width : 600px) {
+	a.text-menu {
+		display: none !important; /* IE8 fix */
+	}
+	li
+	
+	
+	
+	
+	#resizer-icon
+	
+	
+	 
+	
+	
+	"{
+	display
+	
+	
+	
+	
+	:
+	
+	
+	 
+	
+	
+	none
+	
+	
+	 
+	
+	
+	!
+	important
+	
+	
+	
+	
+	; /* IE8 fix */
+}
+
+}
+#test2 {
+	width: 100%;
+	margin-top: -20px;
+}
+
+body {
+	background: #F5F5F5;
+}
+
+i {
+	margin-right: 10px;
+}
+/*fixedbar style*/
+a.mynav-left {
+	margin-left: -25px;
+	padding-bottom: 5px;
+}
+
+
+/*close fixedbar style*/
+p.describe {
+	text-align: center;
+	font-size: 30px;
+	font-family: handWriting;
+	margin-top: 40px;
+}
+
+img.myprofile {
+	height: 40px;
+	width: 40px;
+	margin-top: 5px;
+	margin-right: 2px;
+}
+
+img.myprofile:hover,.whiteText:hover {
+	opacity: 0.8;
+}
+
+.whiteText {
+	color: white;
+	margin-right: 20px;
+	cursor: pointer;
+}
+
+div.topabsentstyle {
+	height: 70px;
+	background: #78909C;
+	margin-top: 10px;
+}
+
+div.topstustyle {
+	height: 70px;
+	background: #66BB6A;
+	margin-top: 10px;
+}
+
+a.top-student:hover div {
+	opacity: 0.95;
+}
+
+a.top-absence:hover div {
+	opacity: 0.95;
+}
+
+.txt-in-absence {
+	font-weight: bold;
+}
+
+ul.ul-style {
+	background: white;
+}
+
+i.eye-icon {
+	margin-left: 10px;
+	color: #BDBDBD;
+}
+
+a.eye-wrapper {
+	transition: all 0.2s linear;
+}
+
+header.box-text-style {
+	font-family: 'handWritiing';
+}
+
+div.mycard {
+	background: white;
+	padding-bottom: 15px;
+}
+
+/* GENERATION STYLE */
+div.mybox {
+	border-radius: 0;
+}
+
+table.dataTable thead th {
+	position: relative;
+	background-image: none !important;
+	text-align: center;
+}
+
+.dataTable {
+	text-align: center;
+}
+
+.bcolor {
+	width: 70px;
+	height: 70px;
+	margin-top: 5px;
+	border: 2px solid black;
+}
+
+div.mybox {
+	border-radius: 0;
+}
+
+i.iconstyle {
+	margin-top: 15px;
+	color: white;
+}
+
+h4.textdash {
+	color: white;
+	text-align: center;
+}
+
+div.mybox:hover .iconstyle,div.mybox:hover .textdash {
+	opacity: 0.8;
+}
+/* CLOST GENERATION STYLE*/
+
+/* ADDCOURSE STYLE */
+div.mybox {
+	border-radius: 0;
+}
+
+table.dataTable thead th {
+	position: relative;
+	background-image: none !important;
+	text-align: center;
+}
+
+.dataTable {
+	text-align: center;
+}
+
+.bcolor {
+	width: 70px;
+	height: 70px;
+	margin-top: 5px;
+	border: 2px solid black;
+}
+
+div.mybox {
+	border-radius: 0;
+}
+
+i.iconstyle {
+	margin-top: 15px;
+	color: white;
+}
+
+h4.textdash {
+	color: white;
+	text-align: center;
+}
+
+div.mybox:hover .iconstyle,div.mybox:hover .textdash {
+	opacity: 0.8;
+}
+/* CLOSE ADDCOURSE STYLE */
+
+/* Open addsubject */
+div.mybox {
+	border-radius: 0;
+}
+
+table.dataTable thead th {
+	position: relative;
+	background-image: none !important;
+	text-align: center;
+}
+
+.dataTable {
+	text-align: center;
+}
+
+.bcolor {
+	width: 70px;
+	height: 70px;
+	margin-top: 5px;
+	border: 2px solid black;
+}
+
+div.mybox {
+	border-radius: 0;
+}
+
+i.iconstyle {
+	margin-top: 15px;
+	color: white;
+}
+
+h4.textdash {
+	color: white;
+	text-align: center;
+}
+
+.text-header{
+	
+	
+}
+div.mybox:hover .iconstyle,div.mybox:hover .textdash {
+	opacity: 0.8;
+}
+/* close addsubject */
