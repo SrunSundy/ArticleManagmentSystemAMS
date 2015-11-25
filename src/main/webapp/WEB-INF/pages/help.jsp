@@ -123,6 +123,13 @@
 			.data-block .resp-data{
 				height: 300px;
 			}
+			.note{
+				background-color:#BCBCBD;
+				padding: 10px;
+				color:#fff;
+				margin-bottom:10px;
+				width:100%;
+			}
 		</style>
 	</head>
 	<body ng-app="myApp" ng-controller="myCtrl">
@@ -154,7 +161,15 @@
 								</tr>
 							</table>
 						</div>
-						
+						<div class="note">
+							<pre>>>Please note that inside opening and closing brace is the parameter...!</pre>
+							<pre>  Example 0 : api/article/{id}          --> api/article/1      --> read article with id = 1(method : GET)</pre>
+							<pre>  Example 1 : api/article/{page}/{key}  --> api/article/1/css  --> list or search first 10 articles found with keyword "css".</pre>
+							<pre>  Example 2 : api/article/{page}/{key}  --> api/article/2/css  --> list or search next 10 articles found with keyword "css".</pre>
+							<pre>  Example 3 : api/article/{page}/{key}  --> api/article/1/*    --> list or search first 10 articles.</pre>
+							<pre>  Example 4 : api/article/{page}/{key}  --> api/article/0/*    --> list or search all articles.</pre>
+							<pre>>>NOTE: All are the same for USER and CATEGORY</pre>
+						</div>
 						<div class="action-url">
 							<table class="tb-action">
 								<tr>
