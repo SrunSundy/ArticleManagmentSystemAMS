@@ -18,51 +18,48 @@
 				border:none;
 			}
 			
+			label{
+				font-family:'arial';
+			}
 			.table{
 				margin-bottom: 10px;
 				margin-top:10px;
 				width: 100%;
-				/* border-collapse: collapse; */ 
-				background-color:#fff;
 			}
 			.table td, .table th{
-				border:1px solid #dadada;
+				border:1px solid #fff;
 				padding:3px 3px;
 				color:#fff;
 			}
-			
 			td button{
-				float:right;	
+				float:right;
+				background-color:#1D9C31;
+				padding: 5px 7px;	
 			}
-			
 			td label{
 				background-color:blue;
-				padding:0px 10px;
+				padding:2px 10px;
 			}
-			
 			th{
-				color:#fff;
 				background-color:blue;
+				font-family:'arial';
 			}
-			
 			button{
 				background-color:blue;
 				color:#fff;
 				cursor:pointer;
 			}
-			
-			.button > pre{
+			.button > label{
 				font-size:20px;
 				color:red;
 				float:right;
 				background-color:blue;
 				color:#fff;
-				padding: 0px 5px 3px 5px;;
+				padding: 0px 10px;
 			}
 			input, select, button{
-				padding: 5px;	
+				padding: 2px 4px;	
 			}
-			
 			body{
 				background-color: rgba(176, 176, 176, 0.4);
 			}
@@ -70,35 +67,50 @@
 				width: 90%;
 			}
 			.a-row > pre{
+				margin-top: 10px;
+				border: 1px solid blue;
+				padding: 15px;
 				text-align:center;
 				font-size:30px;
 				color :blue;
 				border-bottom: 1px solid blue;
 			}
-			
 			.action-url{
 				margin-bottom: 10px;
 				align:center;
 			}
-			
-			.action-url input{
-				width: 80%;
+			.tb-action{
+				width: 100%;
 			}
-			.action-url button{
+			.tb-action td{
+			}
+			.tb-action input{
+				width: 100%;
+				padding:5px 10px;
+				text-transform:lowercase;
+			}
+			.tb-action button{
 				padding: 5px 10px;
+				width: 100%;
 			}
-			.action-url label{
-				background-color:#fff;
-				padding: 0px 20px;
+			.tb-action td label{
+				width:100%;
+				background-color:#AC1313;
+				color:#fff;
+				padding: 4px 10px;
 			}
-			
+			.tb-action td#method{
+				width:10px;
+			}
+			.tb-action td#send{
+				width:100px;
+			}
 			.data-block textarea{
 				width: 100%;
-				height: 150px;
+				height: 220px;
 				margin-bottom: 10px;
 				padding: 5px;
 			}
-			
 			.button{
 				margin-top: 10px;
 			}
@@ -108,7 +120,6 @@
 				color:#fff;
 				cursor:pointer;
 			}
-			
 			.data-block .resp-data{
 				height: 300px;
 			}
@@ -121,16 +132,15 @@
 			<div class="a-container">
 			
 				<div class="a-row">
-					<pre>ARTICLE WEB API - help</pre>
+					<pre>Article Web API | help</pre>
 					<div class="action-block">
 						<div class="button">
 							<button ng-click="showTable('article')">ARTICLE</button>
 							<button ng-click="showTable('user')">USER</button>
 							<button ng-click="showTable('category')">CATEGORY</button>
-							<pre>Main URL : https://article-api.herokuapp.com/</pre>
+							<label>URL : https://article-api.herokuapp.com/</label>
 						</div>
 						<div class="table-block">
-							
 							<table class="table">
 								<tr>
 									<th>RELATIVE_URL</th>
@@ -142,14 +152,17 @@
 									<td><label>{{api.method}}</label></td>
 									<td><label>{{api.description}}</label></td>
 								</tr>
-								
 							</table>
 						</div>
 						
 						<div class="action-url">
-							<label>{{method}}</label>
-							<input type="text" placeholder="Enter request URL here" ng-model="url"/>
-							<button ng-click="sendData()">SEND</button>
+							<table class="tb-action">
+								<tr>
+									<td id="method"><label>{{method}}</label></td>
+									<td id="url"><input type="text" placeholder="Enter request URL here" ng-model="url"/></td>
+									<td id="send"><button ng-click="sendData()">SEND</button></td>
+								</tr>
+							</table>
 						</div>
 						
 						<div class="data-block">
