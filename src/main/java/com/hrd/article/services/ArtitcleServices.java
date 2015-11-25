@@ -19,6 +19,7 @@ public interface ArtitcleServices {
 	
 	public int toggleArticle(int id);
 	
-
+	//i'm adding this method
+	public List<ArticleDTO> listArticles(int page,String key, int uid, int cid);
 	
 }

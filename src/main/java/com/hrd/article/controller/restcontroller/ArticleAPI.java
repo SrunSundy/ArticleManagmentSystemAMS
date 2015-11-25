@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hrd.article.entities.ArticleDTO;
@@ -149,6 +150,25 @@ public class ArticleAPI {
 		}
 	}
 	
-	
-	
+	@RequestMapping(value="/listarticle", method=RequestMethod.POST)
+	public ResponseEntity<Map<String,Object>> listArticles(@RequestParam Map<String, String> Param){
+		
+		String key = Param.get("key");
+		int page = Integer.parseInt(Param.get("page"));
+		int uid = Integer.parseInt(Param.get("uid"));
+		int cid = Integer.parseInt(Param.get("cid"));
+		
+		List<ArticleDTO> articles = articleservice.listArticles(page,key,uid,cid);
+		
+		Map<String, Object> map = new HashMap<String,Object>();
+		if(articles.isEmpty()){
+			map.put("STATUS", HttpStatus.NOT_FOUND.value());
+			map.put("MESSAGE", "ARTICLE NOT FOUND...");
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+		}	
+		map.put("STATUS", HttpStatus.OK.value());
+		map.put("MESSAGE", "ARITCLE HAS BEEN FOUND");
+		map.put("RESPONSE_DATA",articles);
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);	
+	}
 }

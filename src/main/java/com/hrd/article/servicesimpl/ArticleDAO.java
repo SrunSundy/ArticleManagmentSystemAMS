@@ -108,11 +108,20 @@ public class ArticleDAO implements ArtitcleServices{
 		}
 	}
 
-	
-
-
-
-
-	
+	//i'm using this method
+	public List<ArticleDTO> listArticles(int page, String key, int uid, int cid) {
+		
+		int offset = (page * 10) - 10;
+		
+		if (uid != 0)
+			return jdbcTemplate.query("SELECT * FROM tbnews n INNER JOIN tbuser u ON n.nuid=u.uid INNER JOIN tbcategory c ON c.cid=n.ncid WHERE UPPER(ntitle) LIKE UPPER(?) AND u.uid=? ORDER BY n.nid LIMIT 10 OFFSET ?",
+			       new Object[]{"%"+key+"%", uid, offset}, new ArticleMapper());
+		if (cid != 0)
+			return jdbcTemplate.query("SELECT * FROM tbnews n INNER JOIN tbuser u ON n.nuid=u.uid INNER JOIN tbcategory c ON c.cid=n.ncid WHERE UPPER(ntitle) LIKE UPPER(?) AND c.cid=? ORDER BY n.nid LIMIT 10 OFFSET ?",
+				   new Object[]{"%"+key+"%", cid, offset}, new ArticleMapper());
+		
+		return jdbcTemplate.query("SELECT * FROM tbnews n INNER JOIN tbuser u ON n.nuid=u.uid INNER JOIN tbcategory c ON c.cid=n.ncid WHERE UPPER(ntitle) LIKE UPPER(?) ORDER BY n.nid LIMIT 10 OFFSET ?",
+			   new Object[]{"%"+key+"%", offset}, new ArticleMapper());
+	}
 
 }
