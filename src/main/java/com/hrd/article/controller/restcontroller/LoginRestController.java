@@ -3,8 +3,6 @@ package com.hrd.article.controller.restcontroller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,11 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import com.hrd.article.entities.UserDTO;
 import com.hrd.article.services.LoginFormService;
@@ -30,17 +27,19 @@ public class LoginRestController {
 	
 	/**
 	 * 
-	 * Get One Row Category
+	 * Login Form
 	 */
-	@RequestMapping ( value = {"/{email}/{password}"}, method = RequestMethod.GET )
-	public ResponseEntity<Map<String,Object>> getCategory(@PathVariable("email") String email, @PathVariable("password") String pwd, HttpServletRequest rs){
+	@RequestMapping ( value = {"/"}, method = RequestMethod.POST )
+	public ResponseEntity<Map<String,Object>> getCategory(@RequestBody UserDTO userDTO  , HttpServletRequest rs){
 
-		UserDTO user = loginFormService.getUser(email, pwd);
+		UserDTO user = loginFormService.getUser(userDTO.getUemail(), userDTO.getUpassword());
 		Map<String, Object> map = new HashMap<String, Object>();
 		HttpSession session = rs.getSession();
 		if ( user != null ){
 			
 			session.setAttribute("userObj", user );
+			
+			System.out.println(session.getAttribute("userObj"));
 
 			map.put("MESSAGE", "SUCCESS");
 			map.put("STATUS", HttpStatus.OK.value());
