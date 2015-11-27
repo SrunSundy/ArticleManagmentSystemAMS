@@ -45,6 +45,7 @@ public class ArticleAPI {
 		}	
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "ARITCLE HAS BEEN FOUND");
+		map.put("ROW_COUNT", articleservice.getRow());
 		map.put("RESPONSE_DATA",articles);
 		return new ResponseEntity<Map<String,Object>>
 									(map,HttpStatus.OK);	
@@ -62,6 +63,7 @@ public class ArticleAPI {
 		}	
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "ARITCLE HAS BEEN FOUND");
+		map.put("ROW_COUNT", articleservice.getRow());
 		map.put("RESPONSE_DATA",articles);
 		return new ResponseEntity<Map<String,Object>>
 									(map,HttpStatus.OK);	
@@ -245,10 +247,10 @@ public class ArticleAPI {
 		}	
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "ARITCLE HAS BEEN FOUND");
+		map.put("ROW_COUNT", articleservice.getRow());
 		map.put("RESPONSE_DATA",articles);
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);	
 	}
-	
 	
 	//new method
 	@RequestMapping(value="/{limit}/{offset}/{key}", method=RequestMethod.GET)
@@ -269,6 +271,7 @@ public class ArticleAPI {
 		}	
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "ARITCLE HAS BEEN FOUND..!");
+		map.put("ROW_COUNT", articleservice.getRow());
 		map.put("RESPONSE_DATA",articles);
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);	
 	}
