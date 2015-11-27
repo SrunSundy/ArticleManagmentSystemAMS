@@ -2,6 +2,10 @@ package com.hrd.article.controller.restcontroller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +34,7 @@ public class UserRestController {
 			map.put(" MESSAGE","USER HAVE NOT BEEN FOUND");
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
+		map.put("ROW_COUNT", userService.rowCount());
 		map.put("RESPONSE_DATA",list);
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE","USER HAVE BEEN FOUND");
@@ -62,6 +67,7 @@ public class UserRestController {
 			map.put("MESSAGE","USER NOT FOUND");
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
+		map.put("ROW_COUNT", userService.rowCount());
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "USER HAS BEEN FOUNDS");
 		map.put("RESPONSE_DATA", list);
@@ -111,5 +117,46 @@ public class UserRestController {
 		map.put("MESSAGE","SUCCESS TO UPDATE USERT");
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
-	
+	//change password
+	@RequestMapping(value="changepassword",method=RequestMethod.POST)
+	public ResponseEntity<Map<String,Object>>changepassword(@RequestBody String data) throws ParseException {	
+		Map<String,Object> map=new HashMap<String, Object>();
+		//for get data from json string
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObject = (JSONObject) jsonParser.parse(data);
+		// get a String from the JSON object
+		String newpass = (String) jsonObject.get("newpass");
+		String oldpass = (String) jsonObject.get("oldpass");
+		String idd = (String) jsonObject.get("id");
+		int id = Integer.parseInt(idd);
+		if(oldpass.equals(userService.getCurrentPassword(id).getUpassword())){
+			if(userService.changeUserPassword(newpass, id)==1){
+				 map.put("STATUS", HttpStatus.OK.value());
+				 map.put("MESSAGE","PASSWORD HAVE BEEN CHANGE");
+				 return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+			}else{
+				map.put("STATUS", HttpStatus.NOT_FOUND.value());
+				map.put("MESSAGE","PASSWORD FAILD TO UPDATE");
+				return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+			}
+		}else{
+			map.put("STATUS",HttpStatus.FOUND.value());
+			map.put("MESSAGE","OLD PASSWORD DID NOT MARTCH");
+		}
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);	
+	}
+	//get number of user
+	@RequestMapping(value="/getrow",method=RequestMethod.GET)
+	public ResponseEntity<Map<String,Object>> getUser() {
+		Map<String,Object> map=new HashMap<String, Object>();
+		if(userService.rowCount() == 0){
+		    map.put("STATUS", HttpStatus.NOT_FOUND.value());
+		    map.put("MESSAGE","NO RECORD FOUND ");
+		    return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+		}
+	    map.put("RESPONSE_DATA", userService.rowCount());
+		map.put("STATUS", HttpStatus.FOUND.value());
+		map.put("MESSAGE","RECORD FOUND");
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+	}
 }
