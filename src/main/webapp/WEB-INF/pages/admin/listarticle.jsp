@@ -111,10 +111,7 @@ span.dnfound{
 					acontent : $("#searcharticle").val()
 				},
 				success : function(data){
-					
-					
-					 dbrow=data.RESPONSE_DATA;
-					
+					 dbrow=data.RESPONSE_DATA;				
 					var npage;
 					var nps=dbrow/10;
 					
@@ -125,9 +122,6 @@ span.dnfound{
 						npage=nps;
 					}
 					numofpage=npage; 
-					
-				   
-				 
 				    $("#rowshow").html(dbrow+" records"); 
 					loadPagination();
 				}
@@ -183,7 +177,7 @@ span.dnfound{
 		function updateArticle(id){
 			$.ajax({
 				type: "PUT",
-	            url: "gotoedit",
+	            url: "${pageContext.request.contextPath}/api/article/",
 	            data :{
 	            	articleid : id
 	            },
