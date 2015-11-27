@@ -41,21 +41,18 @@ public class LoginRestController {
 		if ( user != null ){
 			
 			session.setAttribute("userObj", user );
-			/*UserDTO u = (UserDTO)rs.getSession().getAttribute("userObj");
-			System.out.println("Your Email is : " + u.getUemail() );
-			System.out.println("Your Password is : " + u.getUpassword() );*/
-			
+
 			map.put("MESSAGE", "SUCCESS");
-			map.put("STATUS", HttpStatus.OK);
+			map.put("STATUS", HttpStatus.OK.value());
 			map.put("RESPONSE_DATA" , user);
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
 		
 		session.setAttribute("userObj", null );
 		map.put("MESSAGE", "FAIL");
-		map.put("STATUS", HttpStatus.NOT_FOUND);
+		map.put("STATUS", HttpStatus.NOT_FOUND.value());
 		map.put("RESPONSE_DATA", null);
-		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		
 	}
 	
