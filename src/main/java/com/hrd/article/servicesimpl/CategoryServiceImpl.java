@@ -118,7 +118,7 @@ public class CategoryServiceImpl implements CategoryService {
 	/**
 	 * Total Category Record
 	 */
-	public int getTotalCategory() {
+	public int getRow() {
 		String sql = "SELECT COUNT(*) FROM tbcategory;";
 		int total = jdbcTemplate.queryForObject(sql, Integer.class);
 		return total;
