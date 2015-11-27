@@ -105,8 +105,8 @@ span.dnfound{
 		function getArticleRow(){
 			
 			$.ajax({
-				method : "POST",
-				url : "getarticlerow",
+				method : "GET",
+				url : "${pageContext.request.contextPath}/api/article/getrow/",
 				data:{
 					acontent : $("#searcharticle").val()
 				},
@@ -157,13 +157,17 @@ span.dnfound{
 		    }); 
 		}
 		function displayPage(mypage){
-			
+			var key=$("#searcharticle").val();
+			if(key=="" || key==null){
+				key="*";
+			}
+			var page=mypage;
 			$.ajax({
-				method : "POST",
-				url : "displayarticlepage",
+				method : "GET",
+				url : "${pageContext.request.contextPath}/api/article/"+page+"/"+key,
 				data : {
-					acontent : $("#searcharticle").val(),
-					page : mypage
+					/* acontent : $("#searcharticle").val(),
+					page : mypage */
 					
 				},
 				success : function(data){
@@ -172,16 +176,13 @@ span.dnfound{
 						$("#listarticleresult").html(listNFtb());
 						return;
 					}
-					$("#listarticleresult").html(listTb(data.RESPONSE_DATA));
-					
-					
-					 
+					$("#listarticleresult").html(listTb(data.RESPONSE_DATA)); 
 				}
 			});
 		} 
 		function updateArticle(id){
 			$.ajax({
-				type: "POST",
+				type: "PUT",
 	            url: "gotoedit",
 	            data :{
 	            	articleid : id
@@ -201,11 +202,9 @@ span.dnfound{
 				return;
 			}
 			$.ajax({
-				type: "POST",
-	            url: "deletearticle",
-	            data :{
-	            	articleid : id
-	            },
+				type: "DELETE",
+	            url: "${pageContext.request.contextPath}/api/article/"+id,
+	           
 	            success: function(data){ 
 	            	alert(data.MESSAGE);
 	            	getArticleRow();
@@ -218,7 +217,7 @@ span.dnfound{
 	            }
 			});
 		}
-		function listArticle(){
+		/* function listArticle(){
 			$.ajax({
 				type: "GET",
 	            url: "listarticle",
@@ -234,7 +233,7 @@ span.dnfound{
 	            	console.log("ERROR..." + data);
 	            }
 			});
-		}
+		} */
 		function listNFtb(){
 			var tb="<table class='table tbstyle'>";
 			tb+="<tr class='tbheader '>";
@@ -249,6 +248,9 @@ span.dnfound{
 			
 			tb+="<tr><td colspan='8'><span class='dnfound' >DATA NOT FOUND</span></td></tr>";
 			return tb;
+		}
+		function isEmpty(str) {
+		    return (!str || 0 === str.length);
 		}
 		function listTb(data){
 			
@@ -265,7 +267,10 @@ span.dnfound{
 			for(var i=0;i<data.length;i++){
 				tb+="<tr class='styleh' >";
 				tb+="<td>"+data[i].id+"</td>";
-				tb+="<td><img src='${pageContext.request.contextPath}/images/"+data[i].image+"' style='width:40px;height:40px;border-radius:100%;'/></td>";
+				
+					tb+="<td><img src='${pageContext.request.contextPath}/images/"+data[i].image+"' style='width:40px;height:40px;border-radius:100%;'/></td>";
+				
+				
 				tb+="<td>"+data[i].title+"</td>";
 				tb+="<td>"+data[i].postdate+"</td>";
 				tb+="<td>"+data[i].category.id+"</td>";
@@ -276,7 +281,7 @@ span.dnfound{
 					tb+="<td><input onchange='updateStatus("+data[i].id+",0)' type='checkbox' checked/></td>";
 				}
 				
-				tb+="<td align='center'><form method='POST' action='article'><button type='button'  data-toggle='modal' data-target='#myModal' class='btn btn-primary '  onclick=viewInfo("+data[i].id+")><span class='glyphicon glyphicon-pencil'></span></button>";
+				tb+="<td align='center'><form method='POST' action='${pageContext.request.contextPath}/admin/article'><button type='button'  data-toggle='modal' data-target='#myModal' class='btn btn-primary '  onclick=viewInfo("+data[i].id+")><span class='glyphicon glyphicon-pencil'></span></button>";
 				tb+="<input type='hidden' value='"+data[i].id+"' name='id' /><button type='submit' class='btn btn-success' ><span class='glyphicon glyphicon-pencil'></span></button>";
 				tb+="<button type='button' class='btn btn-danger' onclick='deleteArticle("+data[i].id+")'><span class='glyphicon glyphicon-trash'></span></button> </form></td>";   
 				tb+="</tr>";
@@ -287,15 +292,10 @@ span.dnfound{
 			
 		
 		}
-		function updateStatus(id,status){
+		function updateStatus(id){
 			$.ajax({
-				type: "POST",
-				
-	            url: "updateastatus", 
-	            data : {
-	            	articleid : id,
-	            	status : status
-	            },
+				type: "PATCH",
+	            url: "${pageContext.request.contextPath}/api/article/toggle/"+id, 
 	            success: function(data){ 
 	            	
 	            	alert("Status has been changed");
