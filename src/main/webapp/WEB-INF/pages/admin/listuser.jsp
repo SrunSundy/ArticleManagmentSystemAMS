@@ -145,8 +145,8 @@ span.searchresult {
 
 		function getUserRow() {
 			$.ajax({
-				method : "POST",
-				url : "${pageContext.request.contextPath}/user/usercount",
+				method : "GET",
+				url : "${pageContext.request.contextPath}/api/user/getrow",
 				data : {
 					acontent : $("#searcharticle").val()
 				},
@@ -190,30 +190,12 @@ span.searchresult {
 				listUser(num);
 			});
 		}
-		//enable status
-		function enablestatus(id) {
+		//status user
+		function statususer(id) {
 			$
 					.ajax({
-						url : "${pageContext.request.contextPath}/user/enableuserstatus",
-						type : 'POST',
-						data : {
-							id : id
-						},
-						success : function(data) {
-							listUser(1);
-							getUserRow();
-						}
-					});
-		}
-		//disable status
-		function disablestatus(id) {
-			$
-					.ajax({
-						url : "${pageContext.request.contextPath}/user/disableuserstatus",
-						type : 'POST',
-						data : {
-							id : id
-						},
+						url : "${pageContext.request.contextPath}/api/user/toggle/"+id,
+						type : 'PATCH',
 						success : function(data) {
 							listUser(1);
 							getUserRow();
@@ -250,10 +232,10 @@ span.searchresult {
 										tb += "<td>" + b.utype + "</td>";
 										tb += "<td>";
 										if (b.ustatus == 0) {
-											tb += "<i class='glyphicon glyphicon-remove ustatus' onclick='enablestatus("
+											tb += "<i class='glyphicon glyphicon-remove ustatus' onclick='statususer("
 													+ b.uid + ")'></i>";
 										} else {
-											tb += "<i class='glyphicon glyphicon-ok ustatus' onclick='disablestatus("
+											tb += "<i class='glyphicon glyphicon-ok ustatus' onclick='statususer("
 													+ b.uid + ")'></i>";
 										}
 										tb += "</td>";
@@ -285,20 +267,21 @@ span.searchresult {
 		}
 		//list user
 		function listUser(mypage) {
+			var key=$("#searcharticle").val();
+			if(key=="" || key==null){
+				key="*";
+			}
+			var page=mypage;
 			$.ajax({
-				url : "${pageContext.request.contextPath}/user/getalluser",
-				type : 'POST',
-				data : {
-					page : mypage,
-					key : $("#searcharticle").val()
-				},
-				success : function(data) {
-					if (data.RESPONSE_DATA.length == 0) {
+				method : "GET",
+				url : "${pageContext.request.contextPath}/api/user/"+page+"/"+key,
+				success : function(data){
+					if(data.RESPONSE_DATA.length==0){
 						$("#demo4_top").html("");
-						$("#listuserresult").html(listNFtb());
+						$("#listarticleresult").html(listNFtb());
 						return;
 					}
-					$("#listuserresult").html(listUserTb(data));
+					$("#listarticleresult").html(listTb(data.RESPONSE_DATA)); 
 				}
 			});
 		}
