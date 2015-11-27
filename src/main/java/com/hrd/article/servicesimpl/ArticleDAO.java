@@ -124,4 +124,9 @@ public class ArticleDAO implements ArtitcleServices{
 			   new Object[]{"%"+key+"%", offset}, new ArticleMapper());
 	}
 
+	public int getRow() {
+		String sql="SELECT COUNT(nid) FROM tbnews";
+		return jdbcTemplate.queryForObject(sql,int.class);
+	}
+
 }
