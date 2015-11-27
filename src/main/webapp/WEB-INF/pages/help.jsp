@@ -211,7 +211,7 @@
 					
 					$scope.responseData = "RESPONSE_DATA";
 					
-					$http.get('api/doc/'+type).success(function(response){
+					$http.get('${pageContext.request.contextPath}/api/doc/'+type).success(function(response){
 						$scope.url = "";
 						$scope.apiDocuments = response;
 					});

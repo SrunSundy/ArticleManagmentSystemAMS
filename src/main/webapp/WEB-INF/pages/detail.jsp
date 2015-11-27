@@ -49,7 +49,7 @@
 							<li><i class="fa fa-area-chart"></i>Popular Articles</li>
 							<li ng-repeat="popular in populars">
 								<div class="a-popular-item">
-									<a href="../detail/{{popular.id}}" target="_blank"><img src="{{popular.image}}"/></a>
+									<a href="${pageContext.request.contextPath}/detail/{{popular.id}}" target="_blank"><img src="{{popular.image}}"/></a>
 									<p><a href="../detail/{{popular.id}}" target="_blank">{{popular.title}}</a></p>
 									<div class="clear"></div>
 								</div>
@@ -75,7 +75,7 @@
 				$scope.navCategory = [];
 				
 				$scope.loadCategories = function(){
-					$http.get('../api/category/').success(function (response) {
+					$http.get('${pageContext.request.contextPath}/api/category/').success(function (response) {
 				    	angular.forEach(response.RESPONSE_DATA, function(data, key) {
 				    		  $scope.categories.push(data);
 				    		  if(key<5)
@@ -83,7 +83,7 @@
 				    	});
 				    });
 				};
-				$http.get('../api/article/${articleid}').success(function (response) {
+				$http.get('${pageContext.request.contextPath}/api/article/${articleid}').success(function (response) {
 					var data = response.RESPONSE_DATA;
 		    		$scope.article = {
 						title: data.title,
@@ -98,7 +98,7 @@
 				$scope.loadPopulars = function(){
 					$http({
                         method: "POST",
-                        url: "../api/article/listarticles",
+                        url: "${pageContext.request.contextPath}/api/article/listarticles",
                         params: {
                             key: "",
                             page:1,

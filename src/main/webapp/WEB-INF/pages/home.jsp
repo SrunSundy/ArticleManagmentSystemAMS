@@ -91,7 +91,7 @@
 				$scope.key = "";
 				
 				$scope.loadCategories = function(){
-					$http.get('api/category/').success(function (response) {
+					$http.get('${pageContext.request.contextPath}/api/category/').success(function (response) {
 				    	angular.forEach(response.RESPONSE_DATA, function(data, key) {
 				    		  $scope.categories.push(data);
 				    		  if(key<5)
@@ -104,7 +104,7 @@
 					$scope.page += 1;
 					$http({
                         method: "POST",
-                        url: "api/article/listarticle",
+                        url: "${pageContext.request.contextPath}/api/article/listarticle",
                         params: {
                             key: $scope.key,
                             page:$scope.page,
@@ -140,7 +140,7 @@
 				$scope.loadPopulars = function(){
 					$http({
                         method: "POST",
-                        url: "api/article/listarticle",
+                        url: "${pageContext.request.contextPath}/api/article/listarticle",
                         params: {
                             key: "",
                             page:1,
