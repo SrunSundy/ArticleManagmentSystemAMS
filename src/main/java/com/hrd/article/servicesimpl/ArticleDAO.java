@@ -124,6 +124,17 @@ public class ArticleDAO implements ArtitcleServices{
 			   new Object[]{"%"+key+"%", offset}, new ArticleMapper());
 	}
 
+	public List<ArticleDTO> listArticles(int limit, int offset, String key) {
+		if(limit < 0) limit = 10;
+		if(offset < 0 ) offset = 0;
+		
+		System.out.println("LIMIT : "+limit);
+		System.out.println("OFFSET : "+offset);
+		
+		return jdbcTemplate.query("SELECT * FROM tbnews n INNER JOIN tbuser u ON n.nuid=u.uid INNER JOIN tbcategory c ON c.cid=n.ncid WHERE UPPER(ntitle) LIKE UPPER(?) ORDER BY n.nid LIMIT ? OFFSET ?",
+			   new Object[]{"%"+key+"%", limit, offset}, new ArticleMapper());
+	}	
+
 	public int getRow() {
 		String sql="SELECT COUNT(nid) FROM tbnews";
 		return jdbcTemplate.queryForObject(sql,int.class);

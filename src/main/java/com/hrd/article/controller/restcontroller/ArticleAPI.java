@@ -248,4 +248,29 @@ public class ArticleAPI {
 		map.put("RESPONSE_DATA",articles);
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);	
 	}
+	
+	
+	//new method
+	@RequestMapping(value="/{limit}/{offset}/{key}", method=RequestMethod.GET)
+	public ResponseEntity<Map<String,Object>> artcile(@PathVariable Map<String, String> Param){
+		
+		int limit = Integer.parseInt(Param.get("limit"));
+		int offset = Integer.parseInt(Param.get("offset"));
+		String key = Param.get("key").equals("*")?"%":Param.get("key");
+		
+		List<ArticleDTO> articles = articleservice.listArticles(limit, offset, key);
+		
+		Map<String, Object> map = new HashMap<String,Object>();
+		
+		if(articles.isEmpty()){
+			map.put("STATUS", HttpStatus.NO_CONTENT.value());
+			map.put("MESSAGE", "NO ARTICLE FOUND..!");
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+		}	
+		map.put("STATUS", HttpStatus.OK.value());
+		map.put("MESSAGE", "ARITCLE HAS BEEN FOUND..!");
+		map.put("RESPONSE_DATA",articles);
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);	
+	}
+	
 }

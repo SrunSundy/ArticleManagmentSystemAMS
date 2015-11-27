@@ -24,4 +24,6 @@ public interface ArtitcleServices {
 	//i'm adding this method
 	public List<ArticleDTO> listArticles(int page,String key, int uid, int cid);
 	
+	public List<ArticleDTO> listArticles(int limit, int offset, String key);
+	
 }
