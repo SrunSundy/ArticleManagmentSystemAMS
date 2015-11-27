@@ -42,6 +42,10 @@ span.dnfound{
 	font-weight: bold;
 	font-family: "Times New Roman", Georgia, Serif;
 }
+#btnadd{
+	border-radius: 0;
+	margin-bottom: 20px;
+}
 </style>
 </head>
 <body>
@@ -53,9 +57,12 @@ span.dnfound{
 		<div style="height:20px;"  class="col-sm-12"></div>
 		
 		<div id="content" class="col-sm-12">
+		<button class="btn btn-success" onclick="redirectLink()" id="btnadd"> <i class='fa fa-plus' ></i> Add Article</button>
 			<fieldset>
 				<legend><span style="font-weight:bold;font-size:20px;">ARTICLE</span><span style="font-size:14px;"> Listing</span></legend>
+				
 				<div class="col-sm-12">
+					
 					<div class="col-sm-9 ">
 						<div class="row">
 						<div class="row">
@@ -97,6 +104,9 @@ span.dnfound{
 		//insertArticle();
 		//deleteArticle();
 		//updateArticle();
+		function redirectLink(){
+			location.href="${pageContext.request.contextPath}/admin/article";
+		}
 		var dbrow=0;
 		var numofpage=0;
 		var rowshow=0;
