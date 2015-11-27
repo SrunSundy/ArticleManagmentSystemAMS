@@ -250,12 +250,16 @@
 							data: JSON.stringify($scope.masterSample)
 						}).success(function(response){
 							$scope.responseData = response;
+						}).error(function(response){
+							$scope.responseData = response;
 						});
 					}else{
 						$http({
 							method: $scope.method,
 							url: $scope.url
 						}).success(function(response){
+							$scope.responseData = response;
+						}).error(function(response){
 							$scope.responseData = response;
 						});
 					}
