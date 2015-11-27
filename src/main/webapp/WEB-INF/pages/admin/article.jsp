@@ -99,11 +99,15 @@
 		$("#image").change(function(){
 			imagech=1;
 		});
+		
+		
+	
+		
 		function getCategoty(){
 			
 			  $.ajax({
 					type: "GET",
-		            url: "${pageContext.request.contextPath}/category/listcategory", 
+		            url: "${pageContext.request.contextPath}/api/category/", 
 		            success: function(data){ 
 		            	var select=" <select class='form-control' id='category' name='category'>";
 		            	for(var i=0;i<data.RESPONSE_DATA.length;i++){
@@ -121,11 +125,12 @@
 		//requestArticle();
 		function insertArticle(){
 			var filename = $("#image").val().split('\\').pop();
+			var value = CKEDITOR.instances['contents'].getData();
 			json={
 					title : $("#title").val(),
 	            	description : $("#description").val(),
 	            	image : filename,
-	            	contents : $("#contents").val(),
+	            	contents : value,
 	            	user : { 
 	            		uid : 1
 	            	},
@@ -137,7 +142,7 @@
 			$.ajax({
 				type: "POST",
 				contentType : "application/json",
-	            url: "insertarticle", 
+	            url: "${pageContext.request.contextPath}/api/article/", 
 	            data : JSON.stringify(json),
 	            success: function(data){ 
 	            	alert(data);
@@ -155,7 +160,7 @@
 		    data1 = new FormData($(this)[0]);
 		    data1.append('file', $('#image')[0].files[0]);
 			$.ajax({
-				url : "uploadarticleimage",
+				url : "${pageContext.request.contextPath}/api/article/uploadimg/",
 				type : "POST",
 				cache: false,
 				contentType: false,
@@ -172,7 +177,7 @@
 			
 			$.ajax({
 				type : "GET",
-				url : "listarticle/"+id,
+				url : "${pageContext.request.contextPath}/api/article/"+id,
 				contentType: "application/json",
 		        dataType: 'json',
 		      
@@ -183,7 +188,7 @@
 		        	$("#contents").val(data.RESPONSE_DATA.contents);
 		        	$("#category").val(data.RESPONSE_DATA.category.id);
 		        	oldimage=data.RESPONSE_DATA.image;
-		        	$("#disimage").html("<img src='${pageContext.request.contextPath}/images/"+data.u_image+"' />");
+		        	$("#disimage").html("<img src='${pageContext.request.contextPath}/images/"+data.RESPONSE_DATA.image+"' />");
 		        },
 		        error: function(data){
 	            	//alert("Unsuccess" + data);
@@ -220,9 +225,9 @@
 			
 			
 			$.ajax({
-				type: "POST",
+				type: "PUT",
 				contentType : "application/json",
-	            url: "updatearticle", 
+	            url: "${pageContext.request.contextPath}/api/article/", 
 	            data : JSON.stringify(json),
 	            success: function(data){ 
 	            	
