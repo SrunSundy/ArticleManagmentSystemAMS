@@ -124,7 +124,7 @@
 				height: 300px;
 			}
 			.note{
-				background-color:#BCBCBD;
+				background-color:#58585A;
 				padding: 10px;
 				color:#fff;
 				margin-bottom:10px;
