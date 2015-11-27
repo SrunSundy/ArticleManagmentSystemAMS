@@ -28,12 +28,12 @@ public class UserRestController {
 		if(list.isEmpty()){
 			map.put("STATUS",HttpStatus.NOT_FOUND.value());
 			map.put(" MESSAGE","USER HAVE NOT BEEN FOUND");
-			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
 		map.put("RESPONSE_DATA",list);
-		map.put("STATUS", HttpStatus.FOUND.value());
+		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE","USER HAVE BEEN FOUND");
-		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.FOUND);
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
 	
 	//Get user by user id
@@ -44,7 +44,7 @@ public class UserRestController {
 		if(user==null){
 			map.put("STATUS", HttpStatus.NOT_FOUND.value());
 			map.put("MESSAGE","USER NOT FOUND");
-			return new ResponseEntity<Map<String, Object>>(map, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "USER HAS BEEN FOUNDS");
@@ -60,12 +60,12 @@ public class UserRestController {
 		if(list.isEmpty()){
 			map.put("STATUS", HttpStatus.NOT_FOUND.value());
 			map.put("MESSAGE","USER NOT FOUND");
-			return new ResponseEntity<Map<String, Object>>(map, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "USER HAS BEEN FOUNDS");
 		map.put("RESPONSE_DATA", list);
-		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
 	
 	//User Status
@@ -73,14 +73,14 @@ public class UserRestController {
 	public ResponseEntity<Map<String,Object>> addUser(@PathVariable("id") int id) {
 		Map<String,Object> map=new HashMap<String, Object>();
 		if(userService.statusUser(id) == 0){
-			    map.put("STATUS", HttpStatus.NOT_FOUND.value());
-			    map.put("MESSAGE","FAILD TO ENABLE USERT");
-				return new ResponseEntity<Map<String,Object>>(map,HttpStatus.NOT_FOUND);
+		    map.put("STATUS", HttpStatus.NOT_FOUND.value());
+		    map.put("MESSAGE","FAILD TO ENABLE USERT");
+		    return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
 	
 		map.put("STATUS", HttpStatus.FOUND.value());
 		map.put("MESSAGE","SUCCESS TO DISABLE USERT");
-		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.FOUND);
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
 	
 	//Insert User
@@ -88,28 +88,28 @@ public class UserRestController {
 	public ResponseEntity<Map<String,Object>> addUser(@RequestBody UserDTO user) {
 		Map<String,Object> map=new HashMap<String, Object>();
 		if(userService.insertUser(user) == 0){
-			    map.put("STATUS", HttpStatus.NOT_FOUND.value());
-			    map.put("MESSAGE","FAILD TO INSET USERT");
-				return new ResponseEntity<Map<String,Object>>(map,HttpStatus.NOT_FOUND);
+		    map.put("STATUS", HttpStatus.NOT_FOUND.value());
+		    map.put("MESSAGE","FAILD TO INSET USERT");
+		    return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
 	
 		map.put("STATUS", HttpStatus.FOUND.value());
 		map.put("MESSAGE","SUCCESS TO INSET USERT");
-		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.FOUND);
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
 	//Update User
-		@RequestMapping(value="/",method=RequestMethod.PUT)
-		public ResponseEntity<Map<String,Object>> upadteUser(@RequestBody UserDTO user) {
-			Map<String,Object> map=new HashMap<String, Object>();
-			if(userService.editUser(user) == 0){
-				    map.put("STATUS", HttpStatus.NOT_FOUND.value());
-				    map.put("MESSAGE","FAILD TO UPDATE USERT");
-					return new ResponseEntity<Map<String,Object>>(map,HttpStatus.NOT_FOUND);
-			}
-		
-			map.put("STATUS", HttpStatus.FOUND.value());
-			map.put("MESSAGE","SUCCESS TO UPDATE USERT");
-			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.FOUND);
+	@RequestMapping(value="/",method=RequestMethod.PUT)
+	public ResponseEntity<Map<String,Object>> upadteUser(@RequestBody UserDTO user) {
+		Map<String,Object> map=new HashMap<String, Object>();
+		if(userService.editUser(user) == 0){
+		    map.put("STATUS", HttpStatus.NOT_FOUND.value());
+		    map.put("MESSAGE","FAILD TO UPDATE USERT");
+		    return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
+	
+		map.put("STATUS", HttpStatus.FOUND.value());
+		map.put("MESSAGE","SUCCESS TO UPDATE USERT");
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+	}
 	
 }
