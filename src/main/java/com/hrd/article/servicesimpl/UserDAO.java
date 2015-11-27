@@ -68,7 +68,7 @@ public class UserDAO implements UserServices {
 			user.setUid(rs.getInt("uid"));
 			user.setUname(rs.getString("uname"));
 			user.setUemail(rs.getString("uemail"));
-			user.setUpassword(rs.getString("upassword"));
+			//user.setUpassword(rs.getString("upassword"));
 			user.setUgender(rs.getString("ugender"));
 			user.setUtype(rs.getInt("utype"));
 			user.setUstatus(rs.getInt("ustatus"));
