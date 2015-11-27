@@ -1,8 +1,14 @@
 package com.hrd.article.controller.restcontroller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hrd.article.entities.ArticleDTO;
 import com.hrd.article.services.ArtitcleServices;
@@ -29,9 +36,12 @@ public class ArticleAPI {
 		List<ArticleDTO> articles = articleservice.listArticles(0,"*");
 		Map<String, Object> map = new HashMap<String,Object>();
 		if(articles.isEmpty()){
-			map.put("STATUS", HttpStatus.NOT_FOUND.value());
+			map.put("STATUS", HttpStatus.OK.value());
 			map.put("MESSAGE", "ARTICLE NOT FOUND...");
-			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
+
+			return new ResponseEntity<Map<String,Object>>
+							(map,HttpStatus.OK);
+
 		}	
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "ARITCLE HAS BEEN FOUND");
@@ -45,7 +55,7 @@ public class ArticleAPI {
 		List<ArticleDTO> articles = articleservice.listArticles(page,key);
 		Map<String, Object> map = new HashMap<String,Object>();
 		if(articles.isEmpty()){
-			map.put("STATUS", HttpStatus.NOT_FOUND.value());
+			map.put("STATUS", HttpStatus.OK.value());
 			map.put("MESSAGE", "ARTICLE NOT FOUND...");
 			return new ResponseEntity<Map<String,Object>>
 										(map,HttpStatus.OK);
@@ -56,6 +66,7 @@ public class ArticleAPI {
 		return new ResponseEntity<Map<String,Object>>
 									(map,HttpStatus.OK);	
 	}
+	
 	
 	@RequestMapping(value="/", method= RequestMethod.POST )
 	public ResponseEntity<Map<String,Object>> insertArticle(@RequestBody ArticleDTO article){
@@ -77,6 +88,50 @@ public class ArticleAPI {
 		
 	}
 	
+	@RequestMapping(value="/uploadimg", method= RequestMethod.POST )
+	public ResponseEntity<Map<String,Object>> uploadImage( @RequestParam("file") MultipartFile file, HttpServletRequest request){
+		Map<String, Object> map  = new HashMap<String, Object>();
+		System.err.println("HELLO");
+		if(!file.isEmpty()){
+			try{
+				UUID uuid = UUID.randomUUID();
+	            String originalFilename = file.getOriginalFilename(); 
+	            String extension = originalFilename.substring(originalFilename.lastIndexOf(".")+1);
+	            String randomUUIDFileName = uuid.toString();
+	            
+	            String filename = originalFilename;
+				byte[] bytes = file.getBytes();
+
+				// creating the directory to store file
+				String savePath = request.getSession().getServletContext().getRealPath("/resources/images/");
+				System.out.println(savePath);
+				File path = new File(savePath);
+				if(!path.exists()){
+					path.mkdir();
+				}
+				
+				// creating the file on server
+				File serverFile = new File(savePath + File.separator + filename );
+				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+				stream.write(bytes);
+				stream.close();
+				
+				System.out.println(serverFile.getAbsolutePath());
+				System.out.println("You are successfully uploaded file " + filename);
+				map.put("MESSAGE","UPLOAD IMAGE SUCCESS");
+				map.put("STATUS", HttpStatus.OK.value());
+				return new ResponseEntity<Map<String,Object>>
+									(map, HttpStatus.OK);
+			}catch(Exception e){
+				System.out.println("You are failed to upload  => " + e.getMessage());
+			}
+		}else{
+			System.err.println("File not found");
+		}
+		return null;
+	}
+	
+	
 	@RequestMapping(value="/", method= RequestMethod.PUT )
 	public ResponseEntity<Map<String,Object>> updateArticle(@RequestBody ArticleDTO article){
 
@@ -97,7 +152,7 @@ public class ArticleAPI {
 	}
 	
 	@RequestMapping(value="/{id}", method= RequestMethod.DELETE )
-	public ResponseEntity<Map<String,Object>> deleteStudent(@PathVariable("id") int id){
+	public ResponseEntity<Map<String,Object>> deleteArticle(@PathVariable("id") int id){
 		
 		Map<String, Object> map  = new HashMap<String, Object>();
 		if(articleservice.deleteArticle(id)==1){
@@ -149,6 +204,29 @@ public class ArticleAPI {
 		}
 	}
 	
+	
+	@RequestMapping(value="/getrow", method=RequestMethod.GET)
+	public ResponseEntity<Map<String,Object>> getRow(){
+		System.err.println("MY ROW");
+		int rows = articleservice.getRow();
+		Map<String, Object> map = new HashMap<String,Object>();
+		if(rows==0){
+			map.put("STATUS", HttpStatus.OK.value());
+			map.put("MESSAGE", "ARTICLE HAS NO ROW...");
+			return new ResponseEntity<Map<String,Object>>
+										(map,HttpStatus.OK);
+		}	
+		map.put("STATUS", HttpStatus.OK.value());
+		map.put("MESSAGE", "ROW FOUND");
+		map.put("RESPONSE_DATA",rows);
+		return new ResponseEntity<Map<String,Object>>
+									(map,HttpStatus.OK);	
+	}
+	
+	
+	
+	
+	//Phearun
 	@RequestMapping(value="/listarticle", method=RequestMethod.POST)
 	public ResponseEntity<Map<String,Object>> listArticles(@RequestParam Map<String, String> Param){
 		
