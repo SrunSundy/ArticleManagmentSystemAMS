@@ -7,7 +7,7 @@
 		<title>Detail Page</title>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-		<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+		<script src= "${pageContext.request.contextPath }/angularjs/angular.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath }/css/phearun.css"/>
 		
