@@ -31,8 +31,7 @@ public class ArticleAPI {
 		if(articles.isEmpty()){
 			map.put("STATUS", HttpStatus.NOT_FOUND.value());
 			map.put("MESSAGE", "ARTICLE NOT FOUND...");
-			return new ResponseEntity<Map<String,Object>>
-										(map,HttpStatus.NO_CONTENT);
+			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}	
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "ARITCLE HAS BEEN FOUND");
@@ -49,7 +48,7 @@ public class ArticleAPI {
 			map.put("STATUS", HttpStatus.NOT_FOUND.value());
 			map.put("MESSAGE", "ARTICLE NOT FOUND...");
 			return new ResponseEntity<Map<String,Object>>
-										(map,HttpStatus.NO_CONTENT);
+										(map,HttpStatus.OK);
 		}	
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "ARITCLE HAS BEEN FOUND");
@@ -73,7 +72,7 @@ public class ArticleAPI {
 			map.put("MESSAGE","INSERT FAILS.");
 			map.put("STATUS", HttpStatus.NOT_FOUND.value());
 			return new ResponseEntity<Map<String,Object>>
-								(map, HttpStatus.NOT_FOUND);
+								(map, HttpStatus.OK);
 		}
 		
 	}
@@ -93,7 +92,7 @@ public class ArticleAPI {
 			map.put("MESSAGE","UPDATE FAILS.");
 			map.put("STATUS", HttpStatus.NOT_FOUND.value());
 			return new ResponseEntity<Map<String,Object>>
-								(map, HttpStatus.NOT_FOUND);
+								(map, HttpStatus.OK);
 		}
 	}
 	
@@ -110,7 +109,7 @@ public class ArticleAPI {
 			map.put("MESSAGE","DELETE FAILS.");
 			map.put("STATUS", HttpStatus.NOT_FOUND.value());
 			return new ResponseEntity<Map<String,Object>>
-								(map, HttpStatus.NOT_FOUND);
+								(map, HttpStatus.OK);
 		}
 	}
 	
@@ -124,7 +123,7 @@ public class ArticleAPI {
 			map.put("STATUS", HttpStatus.NOT_FOUND.value());
 			map.put("MESSAGE", "ARTICLE NOT FOUND...");
 			return new ResponseEntity<Map<String,Object>>
-										(map,HttpStatus.NOT_FOUND);
+										(map,HttpStatus.OK);
 		}
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "ARITCLE HAS BEEN FOUND");
@@ -146,7 +145,7 @@ public class ArticleAPI {
 			map.put("MESSAGE","FAIL TO CHANGE STATUS");
 			map.put("STATUS", HttpStatus.NOT_FOUND.value());
 			return new ResponseEntity<Map<String,Object>>
-								(map, HttpStatus.NOT_FOUND);
+								(map, HttpStatus.OK);
 		}
 	}
 	
