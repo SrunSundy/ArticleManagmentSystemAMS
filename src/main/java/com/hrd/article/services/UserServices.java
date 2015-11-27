@@ -19,4 +19,9 @@ public interface UserServices {
 	
 	public UserDTO getUser(int id);
 	
+	public int changeUserPassword(String newpass,int id);
+   
+	public UserDTO getCurrentPassword( int i);
+	
+	public int rowCount();
 }

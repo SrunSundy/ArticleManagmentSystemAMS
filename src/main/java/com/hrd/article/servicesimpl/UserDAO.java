@@ -77,6 +77,33 @@ public class UserDAO implements UserServices {
 			return user;
 		}
 	}
+	@Override
+	public int changeUserPassword(String newpass,int id) {
+		String sql="UPDATE tbuser SET upassword=? WHERE uid=?";
+		return jdbcTemplate.update(sql,newpass,id);
+	}
 
-	
+	@Override
+	public UserDTO getCurrentPassword(int id) {	
+		try{
+			return jdbcTemplate.queryForObject("SELECT * FROM tbuser WHERE uid=?",new Object[]{id}, new RowMapper<UserDTO>(
+					) {
+						@Override
+						public UserDTO mapRow(ResultSet rs, int rowNumber) throws SQLException {
+							
+							UserDTO user=new UserDTO();
+							user.setUpassword(rs.getString("upassword"));
+							return user;
+						}
+			} );
+		} catch (IncorrectResultSizeDataAccessException ex) {
+            return null;
+        }
+	}
+
+	@Override
+	public int rowCount() {
+		String sql="SELECT COUNT(uid) FROM tbuser";
+		return jdbcTemplate.queryForObject(sql,int.class);
+	}	
 }
