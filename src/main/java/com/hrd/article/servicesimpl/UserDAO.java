@@ -31,12 +31,13 @@ public class UserDAO implements UserServices {
 	public List<UserDTO> listUser(int page, String key) {
 		int offset=(page*10)-10;
 		if((page == 0 && key.equals("*")) || page == 0){
-			if(page == 0 && key.equals("*"))
-			return jdbcTemplate.query("SELECT * FROM tbuser ORDER BY uid ", new UserMapper());
+			if(page == 0 && key.equals("*")) key="%";
+			return jdbcTemplate.query("SELECT * FROM tbuser WHERE UPPER(uname) LIKE UPPER(?) ORDER BY uid ",new Object[]{"%"+key+"%"},new UserMapper());
 		}
 		else if((page != 0 && key.equals("*")))
 			key = "%";
-		    return jdbcTemplate.query("SELECT * FROM tbuser WHERE UPPER(uname) LIKE UPPER(?) ORDER BY uid LIMIT 10 OFFSET ? ", new Object[]{"%"+key+"%", offset}, new UserMapper());
+		
+		return jdbcTemplate.query("SELECT * FROM tbuser WHERE UPPER(uname) LIKE UPPER(?) ORDER BY uid LIMIT 10 OFFSET ? ", new Object[]{"%"+key+"%", offset}, new UserMapper());
 	}
 
 	public int insertUser(UserDTO user) {
