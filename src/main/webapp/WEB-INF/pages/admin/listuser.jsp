@@ -29,6 +29,10 @@ span.searchresult {
 	cursor: pointer;
 	margin-left: 10px
 }
+.btnadd{
+	border-radius: 0;
+	margin-bottom: 20px;
+}
 </style>
 <title>List User</title>
 </head>
@@ -42,6 +46,10 @@ span.searchresult {
 		<div style="height: 20px;" class="col-sm-12"></div>
 
 		<div id="content" class="col-sm-12">
+			<!-- Add Form for Add User Information -->
+			<!-- Trigger the modal with a button -->
+			<button type="button" class="btn btn-success btnadd" data-toggle="modal"
+				data-target="#myModal"><i class='fa fa-plus' ></i> Add User</button>
 			<fieldset>
 				<legend>
 					<span style="font-weight: bold; font-size: 20px;">User</span><span
@@ -72,10 +80,7 @@ span.searchresult {
 						</div>
 					</div>
 				</div>
-				<!-- Add Form for Add User Information -->
-				<!-- Trigger the modal with a button -->
-				<button type="button" class="btn btn-info btn-sm"
-					data-toggle="modal" data-target="#myModal">Add User</button>
+
 
 				<!-- Modal -->
 				<div id="myModal" class="modal fade" role="dialog"
@@ -192,15 +197,15 @@ span.searchresult {
 		}
 		//status user
 		function statususer(id) {
-			$
-					.ajax({
-						url : "${pageContext.request.contextPath}/api/user/toggle/"+id,
-						type : 'PATCH',
-						success : function(data) {
-							listUser(1);
-							getUserRow();
-						}
-					});
+			$.ajax({
+				url : "${pageContext.request.contextPath}/api/user/toggle/"
+						+ id,
+				type : 'PATCH',
+				success : function(data) {
+					listUser(1);
+					getUserRow();
+				}
+			});
 		}
 		//list user show as table
 		function listUserTb(data) {
@@ -267,21 +272,21 @@ span.searchresult {
 		}
 		//list user
 		function listUser(mypage) {
-			var key=$("#searcharticle").val();
-			if(key=="" || key==null){
-				key="*";
+			var key = $("#searcharticle").val();
+			if (key == "" || key == null) {
+				key = "*";
 			}
-			var page=mypage;
+			var page = mypage;
 			$.ajax({
 				method : "GET",
 				url : "${pageContext.request.contextPath}/api/user/"+page+"/"+key,
-				success : function(data){
-					if(data.RESPONSE_DATA.length==0){
+				success : function(data) {
+					if (data.RESPONSE_DATA.length == 0) {
 						$("#demo4_top").html("");
-						$("#listarticleresult").html(listNFtb());
+						$("#listuserresult").html(listNFtb());
 						return;
-					}
-					$("#listarticleresult").html(listTb(data.RESPONSE_DATA)); 
+					}   
+					$("#listuserresult").html(listUserTb(data));
 				}
 			});
 		}
