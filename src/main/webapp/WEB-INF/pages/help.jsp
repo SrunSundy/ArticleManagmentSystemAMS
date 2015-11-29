@@ -4,7 +4,7 @@
 <html>
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Help Page</title>
+		<title>Help | Page</title>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src= "${pageContext.request.contextPath }/angularjs/angular.min.js"></script>
@@ -267,9 +267,8 @@
 						$scope.responseData = response;
 					}); //provide more info */
 				};
-				
 			});
-		
+			
 		</script>
 	</body>
 </html>

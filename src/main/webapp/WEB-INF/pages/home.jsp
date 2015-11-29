@@ -4,7 +4,7 @@
 <html>
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Article Page</title>
+		<title>Home | Page</title>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src= "${pageContext.request.contextPath }/angularjs/angular.min.js"></script>

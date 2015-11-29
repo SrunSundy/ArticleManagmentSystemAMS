@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <div class="a-nav">
 	<div class="nav-search">
-		<%-- <div class="a-logo"><img src="${pageContext.request.contextPath}/images/logo.png"/></div> --%>
+		<i class="fa fa-search"></i>
 		<input type="text" name="searchkey" placeholder="search here..." ng-model="key"/>
 		<button ng-click="searchArticles()">search</button>
 	</div>
