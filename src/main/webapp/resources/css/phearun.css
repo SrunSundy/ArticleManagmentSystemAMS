@@ -74,7 +74,7 @@ i.fa.fa-search{
 	float:right;
 	position:relative;
 	right:10%;
-	top:10px;
+	top:11px;
 }
 .nav-category ul{
 	color:#fff;
@@ -83,7 +83,7 @@ i.fa.fa-search{
 }
 .nav-category li{
 	cursor:pointer;
-	padding: 6px 10px;
+	padding: 1px 10px;
 	text-transform:capital;
 	background-color:rgba(49, 134, 52, 0.57);
 	margin-left:4px;
