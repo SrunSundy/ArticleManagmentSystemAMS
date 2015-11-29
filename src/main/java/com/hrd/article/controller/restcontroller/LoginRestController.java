@@ -44,6 +44,7 @@ public class LoginRestController {
 			map.put("MESSAGE", "SUCCESS");
 			map.put("STATUS", HttpStatus.OK.value());
 			map.put("RESPONSE_DATA" , user);
+			map.put("REDIRECT", "admin/viewlistarticle");
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
 		
@@ -51,6 +52,7 @@ public class LoginRestController {
 		map.put("MESSAGE", "FAIL");
 		map.put("STATUS", HttpStatus.NOT_FOUND.value());
 		map.put("RESPONSE_DATA", null);
+		map.put("REDIRECT", null);
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		
 	}
