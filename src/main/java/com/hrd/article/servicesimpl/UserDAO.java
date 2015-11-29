@@ -25,23 +25,26 @@ public class UserDAO implements UserServices {
 	}
 
 	public List<UserDTO> listUser() {
-		return jdbcTemplate.query("SELECT * FROM tbuser ORDER BY uid ", new UserMapper());
+		return jdbcTemplate.query("SELECT * FROM tbuser ORDER BY uid DESC", new UserMapper());
 	}
 
 	public List<UserDTO> listUser(int page, String key) {
 		int offset=(page*10)-10;
 		if((page == 0 && key.equals("*")) || page == 0){
 			if(page == 0 && key.equals("*")) key="%";
-			return jdbcTemplate.query("SELECT * FROM tbuser WHERE UPPER(uname) LIKE UPPER(?) ORDER BY uid ",new Object[]{"%"+key+"%"},new UserMapper());
+			return jdbcTemplate.query("SELECT * FROM tbuser WHERE UPPER(uname) LIKE UPPER(?) ORDER BY uid DESC",new Object[]{"%"+key+"%"},new UserMapper());
 		}
 		else if((page != 0 && key.equals("*")))
 			key = "%";
 		
-		return jdbcTemplate.query("SELECT * FROM tbuser WHERE UPPER(uname) LIKE UPPER(?) ORDER BY uid LIMIT 10 OFFSET ? ", new Object[]{"%"+key+"%", offset}, new UserMapper());
+		return jdbcTemplate.query("SELECT * FROM tbuser WHERE UPPER(uname) LIKE UPPER(?) ORDER BY uid DESC LIMIT 10 OFFSET ? ", new Object[]{"%"+key+"%", offset}, new UserMapper());
 	}
 
 	public int insertUser(UserDTO user) {
 		String sql="INSERT INTO tbuser(uname,upassword,uemail,ugender,utype,ustatus,uimage) VALUES(?,?,?,?,?,?,?)";
+		if(user.getUimage()==""){
+			user.setUimage("default.jpg");
+		}
 		Object[] obj={user.getUname(),user.getUpassword(),user.getUemail(),user.getUgender(),user.getUtype(),user.getUstatus(),user.getUimage()};
 		return jdbcTemplate.update(sql,obj);
 	}
@@ -77,18 +80,17 @@ public class UserDAO implements UserServices {
 			return user;
 		}
 	}
-	@Override
+
 	public int changeUserPassword(String newpass,int id) {
 		String sql="UPDATE tbuser SET upassword=? WHERE uid=?";
 		return jdbcTemplate.update(sql,newpass,id);
 	}
 
-	@Override
 	public UserDTO getCurrentPassword(int id) {	
 		try{
 			return jdbcTemplate.queryForObject("SELECT * FROM tbuser WHERE uid=?",new Object[]{id}, new RowMapper<UserDTO>(
 					) {
-						@Override
+			
 						public UserDTO mapRow(ResultSet rs, int rowNumber) throws SQLException {
 							
 							UserDTO user=new UserDTO();
@@ -101,9 +103,13 @@ public class UserDAO implements UserServices {
         }
 	}
 
-	@Override
-	public int rowCount() {
-		String sql="SELECT COUNT(uid) FROM tbuser";
-		return jdbcTemplate.queryForObject(sql,int.class);
+
+	public int rowCount(String key) {
+		if (key.equals("*")){
+			String sql="SELECT COUNT(uid) FROM tbuser";
+			return jdbcTemplate.queryForObject(sql,int.class);
+		}
+			String sql="SELECT COUNT(uid) FROM tbuser WHERE UPPER(uname) LIKE UPPER(?)";
+			return jdbcTemplate.queryForObject(sql,new Object[]{"%"+key+"%"},int.class);
 	}	
 }

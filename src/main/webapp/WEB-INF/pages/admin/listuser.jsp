@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -22,16 +22,27 @@ span.searchresult {
 
 .user-profile {
 	border-radius: 50%;
-	width: 5%;
+	width: 30px;
 }
 
 .ustatus {
 	cursor: pointer;
 	margin-left: 10px
 }
-.btnadd{
+
+.btnadd {
 	border-radius: 0;
 	margin-bottom: 20px;
+}
+
+.frmpanel {
+	margin-bottom: 10px;
+}
+
+.frmadd {
+	color: #fff;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
 }
 </style>
 <title>List User</title>
@@ -48,8 +59,10 @@ span.searchresult {
 		<div id="content" class="col-sm-12">
 			<!-- Add Form for Add User Information -->
 			<!-- Trigger the modal with a button -->
-			<button type="button" class="btn btn-success btnadd" data-toggle="modal"
-				data-target="#myModal"><i class='fa fa-plus' ></i> Add User</button>
+			<button type="button" class="btn btn-success btnadd"
+				data-toggle="modal" data-target="#myadd">
+				<i class='fa fa-plus'></i> Add User
+			</button>
 			<fieldset>
 				<legend>
 					<span style="font-weight: bold; font-size: 20px;">User</span><span
@@ -82,55 +95,87 @@ span.searchresult {
 				</div>
 
 
-				<!-- Modal -->
-				<div id="myModal" class="modal fade" role="dialog"
+				<!-- Modal Add -->
+				<div id="myadd" class="modal fade" role="dialog"
 					data-keyboard="false" data-backdrop="static">
 					<div class="modal-dialog">
 
 						<!-- Modal content-->
 						<div class="modal-content">
 							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">Modal Header</h4>
+								<button type="button" class="close" onclick="frmclose()">&times;</button>
+								<h4 class="modal-title">User Information</h4>
 							</div>
 							<div class="modal-body">
-								<form>
-									<table style="width: 100%">
-										<tr>
-											<td><span>UserName<br /> <input type="text"
-													name="username" id="username" required style="width: 90%" /></span></td>
-											<td><span>Password<br /> <input type="password"
-													name="password" id="password" required style="width: 90%" /></span></td>
-											<td><span>Email<br /> <input type="email"
-													name="email" id="email" required style="width: 90%" /></span></td>
-											<td><span>Birthdate<br /> <input type="date"
-													name="birthdate" id="birthdate" required style="width: 90%" /></span></td>
-										</tr>
-										<tr>
-											<td>Image:<br /> <img id="image"
-												style="display: none; width: 20%; margin-bottom: 10px; margin-top: 10px;" />
-												<input type="hidden" name="image" id="image" /> <input
-												type="file" name="file" style="width: 90%" id="file" />
-											</td>
-										</tr>
-										<tr>
-											<td><input type="submit" value="Add" id="btn"
-												class="addbtn" /></td>
-										</tr>
-									</table>
+								<form id="frmuser">
+									<div class="row frmpanel">
+										<div class="col-md-6 col-sm-12">
+										    <input type="hidden" id="id"/>
+											<input type="text" class="form-control"
+												placeholder="UserName" id="username" required="required">
+										</div>
+										<div class="col-md-6 col-sm-12">
+											<input type="password" class="form-control"
+												placeholder="Password" id="password" required="required">
+										</div>
+									</div>
+									<div class="row frmpanel">
+										<div class="col-md-6 col-sm-12">
+											<input type="email" class="form-control" placeholder="Email"
+												id="email" required="required">
+										</div>
+										<div class="col-md-6 col-sm-12">
+											<select class="form-control" id="gender">
+												<option value="1">Male</option>
+												<option value="2">Female</option>
+											</select>
+										</div>
+									</div>
+									<div class="row frmpanel">
+										<div class="col-md-6 col-sm-12">
+											<select class="form-control" id="type">
+												<option value="1">Admin</option>
+												<option value="2">User</option>
+											</select>
+										</div>
+										<div class="col-md-6 col-sm-12">
+											<select class="form-control" id="status">
+												<option value="1">Enable</option>
+												<option value="0">Disable</option>
+											</select>
+										</div>
+									</div>
+									<div class="row frmpanel">
+										<div class="col-md-12 col-sm-12">
+											<div class="fileinput fileinput-new"
+												data-provides="fileinput" style="width: 100%;">
+												<div class="fileinput-preview thumbnail"
+													data-trigger="fileinput" id='disimage'
+													style="width: 100%; height: 200px;"></div>
+												<div>
+													<span class="btn btn-default btn-file"><span
+														class="fileinput-new">Select image</span><span
+														class="fileinput-exists">Change</span><input id='image'
+														type="file" name="image"></span> <a href="#"
+														class="btn btn-default fileinput-exists"
+														data-dismiss="fileinput">Remove</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row frmpanel">
+										<div class="col-md-12 col-sm-12">
+											<input type="submit" id="btnadd" class="form-control frmadd"
+												value="Add">
+										</div>
+									</div>
 								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">Close</button>
+								<h3 style="color: red; text-align: center" id="msg"></h3>
 							</div>
 						</div>
 
 					</div>
 				</div>
-
-
-
 				<div id="listuserresult"></div>
 				<div id="content"></div>
 				<div id="demo4_top" class="demo4_top"></div>
@@ -144,21 +189,127 @@ span.searchresult {
 	<script>
 		var dbrow = 0;
 		var numofpage = 0;
-		var rowshow = 0;
+		var rowshow = 10;
+		var imagech = 0;
+		$("#image").change(function() {
+			imagech = 1;
+		});
 		listUser(1);
 		getUserRow();
+		//clear form control
+		function clear() {
+			$("#username").val("");
+			$("#password").val("");
+			$("#email").val("");
 
+			//use to clear image from jasny boostrap
+			$(".fileinput").fileinput("clear");
+
+		}
+
+		//upload image
+		function uploadAImage() {
+			var data1;
+			data1 = new FormData($(this)[0]);
+			data1.append('file', $('#image')[0].files[0]);
+			$
+					.ajax({
+						url : "${pageContext.request.contextPath}/api/article/uploadimg/",
+						type : "POST",
+						cache : false,
+						contentType : false,
+						processData : false,
+						data : data1,
+					});
+		}
+		//insert user information
+		$("#frmuser").submit(function(e) {
+			e.preventDefault();
+			if ($("#btnadd").val() == "Add") {
+				var filename = $("#image").val().split('\\').pop();
+				alert(filename);
+				json = {
+					uname : $("#username").val(),
+					upassword : $("#password").val(),
+					uemail : $("#email").val(),
+					ugender : $("#gender").val(),
+					utype : $("#type").val(),
+					ustatus : $("#status").val(),
+					uimage : filename
+				};
+				// alert(JSON.stringify(json));
+				$.ajax({
+					method : "POST",
+					contentType : "application/json",
+					url : "${pageContext.request.contextPath}/api/user/",
+					data : JSON.stringify(json),
+					success : function(data) {
+						uploadAImage();
+						clear();
+						$("#myadd").modal('hide');
+						listUser(1);
+						getUserRow();
+
+					},
+					error : function(data) {
+						clear();
+						$("#msg").html("ADD USER FAILD PLEACE TRY AGINA !");
+					}
+				})
+			} else {
+				if (imagech == 0) {
+					filename = oldimage;
+				} else {
+					filename = $("#image").val().split('\\').pop();
+				}
+				json = {
+					uid :$("#id").val(),
+					uname : $("#username").val(),
+					upassword : $("#password").val(),
+					uemail : $("#email").val(),
+					ugender : $("#gender").val(),
+					utype : $("#type").val(),
+					ustatus : $("#status").val(),
+					uimage : filename
+				};
+			 	$.ajax({
+						method : "PUT",
+						contentType : "application/json",
+						url : "${pageContext.request.contextPath}/api/user/",
+						data : JSON.stringify(json),
+						success : function(data) {			
+							if (imagech == 0) {
+								clear();
+								$("#myadd").modal('hide');
+								listUser(1);
+								getUserRow(); 
+							} else {
+								uploadAImage();
+								clear();
+								$("#myadd").modal('hide');
+								listUser(1);
+								getUserRow(); 
+							}
+							imagech=0;
+						},
+						error : function(data) {
+							clear();
+							$("#msg").html("ADD USER FAILD PLEACE TRY AGINA !");
+						}
+					})   
+			}
+		});
 		function getUserRow() {
+			var key = $("#searcharticle").val();
+			if (key == "" || key == null) {
+				key = "*";
+			}
 			$.ajax({
 				method : "GET",
-				url : "${pageContext.request.contextPath}/api/user/getrow",
-				data : {
-					acontent : $("#searcharticle").val()
-				},
+				url : "${pageContext.request.contextPath}/api/user/getrow/"
+						+ key,
 				success : function(data) {
-
 					dbrow = data.RESPONSE_DATA;
-
 					var npage;
 					var nps = dbrow / 10;
 
@@ -216,7 +367,6 @@ span.searchresult {
 					tb += "<tr class='tbheader'>";
 					tb += "<th>ID</th>";
 					tb += "<th>Name</th>";
-					tb += "<th>Password</th>";
 					tb += "<th>Email</th>";
 					tb += "<th>Gender</th>";
 					tb += "<th>Type</th>";
@@ -231,10 +381,21 @@ span.searchresult {
 										tb += "<tr>";
 										tb += "<td>" + b.uid + "</td>";
 										tb += "<td>" + b.uname + "</td>";
-										tb += "<td>" + b.upassword + "</td>";
 										tb += "<td>" + b.uemail + "</td>";
-										tb += "<td>" + b.ugender + "</td>";
-										tb += "<td>" + b.utype + "</td>";
+										tb += "<td>";
+										if (b.ugender == 1) {
+											tb += "male";
+										} else {
+											tb += "female";
+										}
+										tb += "</td>";
+										tb += "<td>";
+										if (b.utype == 1) {
+											tb += "admin";
+										} else {
+											tb += "user";
+										}
+										tb += "</td>";
 										tb += "<td>";
 										if (b.ustatus == 0) {
 											tb += "<i class='glyphicon glyphicon-remove ustatus' onclick='statususer("
@@ -244,9 +405,10 @@ span.searchresult {
 													+ b.uid + ")'></i>";
 										}
 										tb += "</td>";
-										tb += "<td><img class='user-profile' src='${pageContext.request.contextPath}/upload/"+ b.uimage +"'/></td>";
-										tb += "<td><span class='glyphicon glyphicon-edit ustatus'  onclick='disablestatus("
-												+ b.uid + ")'></span></td>";
+										tb += "<td><img class='user-profile' src='${pageContext.request.contextPath}/images/"+ b.uimage +"'/></td>";
+										tb += "<td><button type='button' class='btn btn-success'​ onclick='edituser("
+												+ b.uid
+												+ ")'><i class='glyphicon glyphicon-edit'></i></button></td>";
 										tb += "</tr>";
 									});
 					tb += "</table>";
@@ -279,16 +441,49 @@ span.searchresult {
 			var page = mypage;
 			$.ajax({
 				method : "GET",
-				url : "${pageContext.request.contextPath}/api/user/"+page+"/"+key,
+				url : "${pageContext.request.contextPath}/api/user/" + page
+						+ "/" + key,
 				success : function(data) {
 					if (data.RESPONSE_DATA.length == 0) {
 						$("#demo4_top").html("");
 						$("#listuserresult").html(listNFtb());
 						return;
-					}   
+					}
 					$("#listuserresult").html(listUserTb(data));
 				}
 			});
+		}
+
+		//edit user
+		function edituser(id) {
+			$
+					.ajax({
+						method : "GET",
+						url : "${pageContext.request.contextPath}/api/user/"
+								+ id,
+						success : function(data) {
+							jsonUser = data.RESPONSE_DATA;
+							$("#id").val(jsonUser.uid);
+							$("#username").val(jsonUser.uname);
+							$("#password").val(jsonUser.upassword);
+							$("#email").val(jsonUser.uemail);
+							$("#gender").val(jsonUser.ugender);
+							$("#type").val(jsonUser.utype);
+							$("#status").val(jsonUser.ustatus);
+							oldimage = jsonUser.uimage;
+							$("#disimage").html("<img src='${pageContext.request.contextPath}/images/"+jsonUser.uimage+"' />");
+							$("#password").prop('disabled', 'disabled');
+							$("#btnadd").prop('value', 'Edit');
+							$("#myadd").modal('show');
+
+						}
+					});
+		}
+		function frmclose() {
+			clear();
+			$("#password").removeAttr("disabled");
+			$("#btnadd").prop('value', 'Add');
+			$("#myadd").modal('hide');
 		}
 	</script>
 </body>

@@ -1,7 +1,13 @@
 package com.hrd.article.controller.restcontroller;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,7 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hrd.article.entities.UserDTO;
 import com.hrd.article.services.UserServices;
@@ -34,7 +42,7 @@ public class UserRestController {
 			map.put(" MESSAGE","USER HAVE NOT BEEN FOUND");
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
-		map.put("ROW_COUNT", userService.rowCount());
+		map.put("ROW_COUNT", userService.rowCount("*"));
 		map.put("RESPONSE_DATA",list);
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE","USER HAVE BEEN FOUND");
@@ -67,7 +75,7 @@ public class UserRestController {
 			map.put("MESSAGE","USER NOT FOUND");
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
-		map.put("ROW_COUNT", userService.rowCount());
+		map.put("ROW_COUNT", userService.rowCount("*"));
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "USER HAS BEEN FOUNDS");
 		map.put("RESPONSE_DATA", list);
@@ -146,17 +154,59 @@ public class UserRestController {
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);	
 	}
 	//get number of user
-	@RequestMapping(value="/getrow",method=RequestMethod.GET)
-	public ResponseEntity<Map<String,Object>> getUser() {
+	@RequestMapping(value="/getrow/{key}",method=RequestMethod.GET)
+	public ResponseEntity<Map<String,Object>> getUser(@PathVariable("key") String key) {
 		Map<String,Object> map=new HashMap<String, Object>();
-		if(userService.rowCount() == 0){
+		if(userService.rowCount(key) == 0){
 		    map.put("STATUS", HttpStatus.NOT_FOUND.value());
 		    map.put("MESSAGE","NO RECORD FOUND ");
 		    return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
-	    map.put("RESPONSE_DATA", userService.rowCount());
+	    map.put("RESPONSE_DATA", userService.rowCount(key));
 		map.put("STATUS", HttpStatus.FOUND.value());
 		map.put("MESSAGE","RECORD FOUND");
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
+	@RequestMapping(value="/uploadimg", method= RequestMethod.POST )
+	public ResponseEntity<Map<String,Object>> uploadImage( @RequestParam("file") MultipartFile file, HttpServletRequest request){
+		Map<String, Object> map  = new HashMap<String, Object>();
+		if(!file.isEmpty()){
+			try{
+				UUID uuid = UUID.randomUUID();
+	            String originalFilename = file.getOriginalFilename(); 
+	            String extension = originalFilename.substring(originalFilename.lastIndexOf(".")+1);
+	            String randomUUIDFileName = uuid.toString();
+	            
+	            String filename = originalFilename;
+				byte[] bytes = file.getBytes();
+
+				// creating the directory to store file
+				String savePath = request.getSession().getServletContext().getRealPath("/resources/images/");
+				System.out.println(savePath);
+				File path = new File(savePath);
+				if(!path.exists()){
+					path.mkdir();
+				}
+				
+				// creating the file on server
+				File serverFile = new File(savePath + File.separator + filename );
+				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+				stream.write(bytes);
+				stream.close();
+				
+				System.out.println(serverFile.getAbsolutePath());
+				System.out.println("You are successfully uploaded file " + filename);
+				map.put("MESSAGE","UPLOAD IMAGE SUCCESS");
+				map.put("STATUS", HttpStatus.OK.value());
+				return new ResponseEntity<Map<String,Object>>
+									(map, HttpStatus.OK);
+			}catch(Exception e){
+				System.out.println("You are failed to upload  => " + e.getMessage());
+			}
+		}else{
+			System.err.println("File not found");
+		}
+		return null;
+	}
+	
 }
