@@ -45,7 +45,7 @@ public class ArticleAPI {
 		}	
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "ARITCLE HAS BEEN FOUND");
-		map.put("ROW_COUNT", articleservice.getRow());
+		map.put("ROW_COUNT", articleservice.getAllRow());
 		map.put("RESPONSE_DATA",articles);
 		return new ResponseEntity<Map<String,Object>>
 									(map,HttpStatus.OK);	
@@ -63,7 +63,7 @@ public class ArticleAPI {
 		}	
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "ARITCLE HAS BEEN FOUND");
-		map.put("ROW_COUNT", articleservice.getRow());
+		map.put("ROW_COUNT", articleservice.getAllRow());
 		map.put("RESPONSE_DATA",articles);
 		return new ResponseEntity<Map<String,Object>>
 									(map,HttpStatus.OK);	
@@ -207,10 +207,27 @@ public class ArticleAPI {
 	}
 	
 	
-	@RequestMapping(value="/getrow", method=RequestMethod.GET)
-	public ResponseEntity<Map<String,Object>> getRow(){
+	@RequestMapping(value="/getrow/{key}", method=RequestMethod.GET)
+	public ResponseEntity<Map<String,Object>> getRow( @PathVariable("key") String key){
 		System.err.println("MY ROW");
-		int rows = articleservice.getRow();
+		int rows = articleservice.getRow(key);
+		Map<String, Object> map = new HashMap<String,Object>();
+		if(rows==0){
+			map.put("STATUS", HttpStatus.OK.value());
+			map.put("MESSAGE", "ARTICLE HAS NO ROW...");
+			return new ResponseEntity<Map<String,Object>>
+										(map,HttpStatus.OK);
+		}	
+		map.put("STATUS", HttpStatus.OK.value());
+		map.put("MESSAGE", "ROW FOUND");
+		map.put("RESPONSE_DATA",rows);
+		return new ResponseEntity<Map<String,Object>>
+									(map,HttpStatus.OK);	
+	}
+	@RequestMapping(value="/getrow", method=RequestMethod.GET)
+	public ResponseEntity<Map<String,Object>> getAllRow(){
+		System.err.println("MY ROW");
+		int rows = articleservice.getAllRow();
 		Map<String, Object> map = new HashMap<String,Object>();
 		if(rows==0){
 			map.put("STATUS", HttpStatus.OK.value());
@@ -247,7 +264,7 @@ public class ArticleAPI {
 		}	
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "ARITCLE HAS BEEN FOUND");
-		map.put("ROW_COUNT", articleservice.getRow());
+		map.put("ROW_COUNT", articleservice.getAllRow());
 		map.put("RESPONSE_DATA",articles);
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);	
 	}
@@ -271,7 +288,7 @@ public class ArticleAPI {
 		}	
 		map.put("STATUS", HttpStatus.OK.value());
 		map.put("MESSAGE", "ARITCLE HAS BEEN FOUND..!");
-		map.put("ROW_COUNT", articleservice.getRow());
+		map.put("ROW_COUNT", articleservice.getAllRow());
 		map.put("RESPONSE_DATA",articles);
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);	
 	}
