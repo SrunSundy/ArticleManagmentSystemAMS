@@ -366,7 +366,7 @@ span.searchresult {
 				jsonUser = data.RESPONSE_DATA;
 				if (jsonUser.length != 0) {
 					var tb = "<table class='table'>";
-					tb += "<tr class='tbheader'>";
+					tb += "<tr class='tbheader' style='background-color:#94a661;color:#eee'>";
 					tb += "<th>ID</th>";
 					tb += "<th>Name</th>";
 					tb += "<th>Email</th>";
@@ -421,7 +421,7 @@ span.searchresult {
 		}
 		function listNFtb() {
 			var tb = "<table class='table tbstyle'>";
-			tb += "<tr class='tbheader '>";
+			tb += "<tr class='tbheader ' style='background-color:#94a661;color:#eee'>";
 			tb += "<th>ID</th>";
 			tb += "<th>Name</th>";
 			tb += "<th>Password</th>";

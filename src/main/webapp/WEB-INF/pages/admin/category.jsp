@@ -51,7 +51,7 @@
 			    	<th> NAME </th>
 			    	<th> DESCRIPTION </th>
 			    	<th> STATUS </th>
-			    	<th> ACTION </th>
+			    	<th> <center>ACTION </center></th>
 			    </tr>
 				<tr ng-repeat="cat in category.RESPONSE_DATA" >
 					<td>{{ $index+1 }} <input type="hidden" value="{{ cat.id }}"/></td>
@@ -68,9 +68,10 @@
 				   
 				    	
 				    </td>
-				    <td>
+				    <td><center>
 				    	<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myView" ng-click="viewCategory(cat.id)"><i class="fa fa-desktop"></i>View</button>
 				    	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myEdit" ng-click="viewCategory(cat.id)"><i class="fa fa-pencil"></i>Edit</button>
+				     	</center>
 				     </td>
 				</tr>
 			</table>

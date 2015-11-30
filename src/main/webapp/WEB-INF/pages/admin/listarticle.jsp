@@ -242,8 +242,8 @@ span.dnfound{
 			});
 		} */
 		function listNFtb(){
-			var tb="<table class='table tbstyle'>";
-			tb+="<tr class='tbheader '>";
+			var tb="<table class='table tbstyle' >";
+			tb+="<tr class='tbheader' style='background-color:#94a661;color:#eee'>";
 			tb+="<th>ID</th>";
 			tb+="<th>Image</th>";
 			tb+="<th>Title</th>";
@@ -262,7 +262,7 @@ span.dnfound{
 		function listTb(data){
 			
 			var tb="<table class='table tbstyle'>";
-			tb+="<tr class='tbheader '>";
+			tb+="<tr class='tbheader ' style='background-color:#94a661;color:#eee'>";
 			tb+="<th>ID</th>";
 			tb+="<th>Image</th>";
 			tb+="<th>Title</th>";
