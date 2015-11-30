@@ -87,6 +87,7 @@ input#btnlogin:hover{
 					url : "${pageContext.request.contextPath}/api/login/",
 					data :  JSON.stringify(json),
 					success : function(data){
+						
 						if(data.REDIRECT==null){
 							alert("Login failed!");
 						}else{
