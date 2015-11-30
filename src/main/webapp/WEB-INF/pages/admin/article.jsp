@@ -129,13 +129,15 @@
 		function insertArticle(){
 			var filename = $("#image").val().split('\\').pop();
 			var value = CKEDITOR.instances['contents'].getData();
+			var uid="<c:out value='${userObj.uid}'> </c:out>";
+			
 			json={
 					title : $("#title").val(),
 	            	description : $("#description").val(),
 	            	image : filename,
 	            	contents : value,
 	            	user : { 
-	            		uid : 1
+	            		uid : uid
 	            	},
 	            	category : {
 	            		id : $("#category").val()
