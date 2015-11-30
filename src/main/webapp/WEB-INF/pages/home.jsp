@@ -32,7 +32,7 @@
 						<div class="article-block">
 							<div class="article-item" ng-repeat="article in articles">
 								<div class="article-info">
-									<img ng-click="articleUser(article.user.uid)" src="{{article.user.uimage}}"/>
+									<img ng-click="articleUser(article.user.uid)" src="${pageContext.request.contextPath}/images/{{article.user.uimage}}"/>
 									<p ng-click="articleUser(article.user.uid)">{{article.user.uname | uppercase}}</p><br>
 									<pre>{{article.postdate | date:'medium'}}</pre>	
 									<div class="clear"></div>								
