@@ -57,6 +57,7 @@ public class ArticleAPI {
 		Map<String, Object> map = new HashMap<String,Object>();
 		if(articles.isEmpty()){
 			map.put("STATUS", HttpStatus.OK.value());
+			map.put("RESPONSE_DATA",articles);
 			map.put("MESSAGE", "ARTICLE NOT FOUND...");
 			return new ResponseEntity<Map<String,Object>>
 										(map,HttpStatus.OK);
