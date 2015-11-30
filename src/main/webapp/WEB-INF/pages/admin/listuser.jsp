@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -225,9 +226,9 @@ span.searchresult {
 		//insert user information
 		$("#frmuser").submit(function(e) {
 			e.preventDefault();
+			//add action
 			if ($("#btnadd").val() == "Add") {
 				var filename = $("#image").val().split('\\').pop();
-				alert(filename);
 				json = {
 					uname : $("#username").val(),
 					upassword : $("#password").val(),
@@ -256,6 +257,7 @@ span.searchresult {
 						$("#msg").html("ADD USER FAILD PLEACE TRY AGINA !");
 					}
 				})
+			// edit action 
 			} else {
 				if (imagech == 0) {
 					filename = oldimage;
@@ -472,7 +474,7 @@ span.searchresult {
 							$("#status").val(jsonUser.ustatus);
 							oldimage = jsonUser.uimage;
 							$("#disimage").html("<img src='${pageContext.request.contextPath}/images/"+jsonUser.uimage+"' />");
-							$("#password").prop('disabled', 'disabled');
+							$("#password").prop('readonly', 'readonly');
 							$("#btnadd").prop('value', 'Edit');
 							$("#myadd").modal('show');
 
@@ -481,7 +483,7 @@ span.searchresult {
 		}
 		function frmclose() {
 			clear();
-			$("#password").removeAttr("disabled");
+			$("#password").removeAttr("readonly");
 			$("#btnadd").prop('value', 'Add');
 			$("#myadd").modal('hide');
 		}
