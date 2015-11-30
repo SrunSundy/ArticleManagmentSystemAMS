@@ -33,14 +33,20 @@
 <%@include file="include/leftbar.jsp"%>
 
 	<div class="col-sm-12" ng-app="myApp" ng-controller="myCtrl" >
-	    
-		<h1> WELCOME CATEGORY PAGE</h1>
+	    <center>
+	    	<h1 style="font-weight:bold"> WELCOME CATEGORY PAGE</h1>
+	    </center>
+		
 		
 		<button type="button" class="btn btn-success btn-msg" data-toggle="modal" data-target="#myAdd" ng-click="viewCategory(cat.id)"><i class="fa fa-plus"></i>Add</button>
 		<br/><br/>
-
+		
+<!-- 		<div id="content">Dynamic Content goes here</div>
+    	<div id="page-selection">Pagination goes here</div> -->
+		
+		
 		<table class="table">
-			    <tr>
+			    <tr style="background-color:#94a661;color:#eee">
 			    	<th> ID </th>
 			    	<th> NAME </th>
 			    	<th> DESCRIPTION </th>
@@ -53,7 +59,7 @@
 				    <td>{{ cat.description }} </td>
 				    <td>
 				       <div>
-			               <input type="checkbox" value={{cat.status}} ng-click="statusCategory(cat.id,cat.status)" checked ng-if="cat.status == 1 " 
+			               <input type="checkbox" value={{cat.status}} ng-click="statusCategory(cat.id)" checked ng-if="cat.status == 1 " 
 			               	data-toggle="modal" data-target="#myCheck" />
 			               <input type="checkbox" value={{cat.status}} ng-click="statusCategory(cat.id,cat.status)" ng-if="cat.status == 0" 
 			               data-toggle="modal" data-target="#myCheck"/>
@@ -77,13 +83,9 @@
 		      <div class="modal-content">
 
 		        <div class="modal-body">
-					<h4 ng-if="bool==true"><div class="alert alert-danger">
-					  		<strong>Status {{cstatus}}</strong> 
-						</div>
-					</h4>
-					
-					<h4 ng-if="bool==false"><div class="alert alert-info">
-					  		<strong>Status {{cstatus}}</strong> 
+
+					<h4><div class="alert alert-info">
+					  		<strong>Status Change...!</strong> 
 						</div>
 					</h4>
 		        </div>
@@ -248,7 +250,7 @@
 		  </div>
 	
 	</div>
-	
+	 
 	 <script>
 	 	var app = angular.module('myApp',[]);
 		app.controller('myCtrl',function($scope,$http,$timeout){
@@ -257,9 +259,10 @@
 			   
 			   // Load list category			   
 			   $scope.categoryfunc = function(){
-				  $http.get('${pageContext.request.contextPath}/category/listcategory')
+				  $http.get('${pageContext.request.contextPath}/api/category/')
 				  .success(function(data, status, headers, config) {
-					  
+					  //$scope.data_page = data.ROW_COUNT;
+					 // data_page = data.ROW_COUNT;
 				      $scope.category = data;
 				      console.log($scope.category);
 				      
@@ -277,7 +280,7 @@
 			   $scope.description = "";
 			   //view category by id
 			 	$scope.viewCategory = function(id){
-					$http.get('${pageContext.request.contextPath}/category/getcategory/'+id).
+					$http.get('${pageContext.request.contextPath}/api/category/'+id).
 				    success(function(data, status, headers, config) {
 
 				      console.log(data);
@@ -314,7 +317,7 @@
 							"name" : angular.element("#frmedit input[name='name']").val(),
 							"description" : angular.element("#frmedit input[name='description']").val()
 					};	
-					$http.put('${pageContext.request.contextPath}/category/updatecategory',dataObj).
+					$http.put('${pageContext.request.contextPath}/api/category/',dataObj).
 				    success(function(data, status, headers, config) {
 				      console.log(data);
 				   
@@ -343,7 +346,7 @@
 							"name" : angular.element("#frmadd input[name='name']").val(),
 							"description" : angular.element("#frmadd input[name='description']").val()
 					};	
-					$http.post('${pageContext.request.contextPath}/category/addcategory',dataObj).
+					$http.post('${pageContext.request.contextPath}/api/category/',dataObj).
 				    success(function(data, status, headers, config) {
 				      console.log(data);
 				      
@@ -363,23 +366,12 @@
 				   
 				
 				// category change status
-			 	$scope.statusCategory = function(id,status){
-
-			 		$scope.cstatus = "";
-			 		$scope.bool = false;
-			 		if (status == 0){
-			 			$scope.cstatus = "Enables";
-			 			$scope.bool = false;
-			 		}else if (status == 1){
-			 			$scope.cstatus = "Disables";
-			 			$scope.bool = true;
-			 		}
+			 	$scope.statusCategory = function(id){
 			 		
 			 		$timeout(function() { angular.element('#myCheck').modal('hide'); }, 2000);	
-					$http.put('${pageContext.request.contextPath}/category/statuscategory/'+id+'/'+status).
+					$http.patch('${pageContext.request.contextPath}/api/category/toggle/'+id).
 				    success(function(data, status, headers, config) {
-				    	
-				      	
+
 				      $scope.categoryfunc();
 				      console.log(data);
 				    }).
@@ -406,11 +398,78 @@
 			 		angular.element("#frmadd input[name='description']").val("");
 	
 				}
-
-
-		});
+		        
+			});
 
 	</script>
+	
+<!-- 	 <script>
+	        // init bootpag
+	        
+	        //alert(data_page);
+	        var data_page = $.get('${pageContext.request.contextPath}/api/category/getrow/',function(data){
+	        	alert(data.ROW_COUNT);
+	        });
+	        
+	        alert(data_page);
+	        $('#page-selection').bootpag({
+	            total: 2,
+	            page: 2,
+	            maxVisible: 5,
+	            leaps: true,
+	            firstLastUse: true,
+	            first: 'First',
+	            last: 'Last',
+	            wrapClass: 'pagination',
+	            activeClass: 'active',
+	            disabledClass: 'disabled',
+	            nextClass: 'next',
+	            prevClass: 'prev',
+	            lastClass: 'last',
+	            firstClass: 'first'
+	        }).on("page", function(event, /* page number here */ num){
+	             $("#content").html("Insert content"); // some ajax content loading...
+	             alert(num);
+	             
+	        });
+	        
+	        
+	        
+	        /* 	        var data_page = $.get('${pageContext.request.contextPath}/api/category/getrow/',function(data){
+		        	alert(data.ROW_COUNT);
+		        });
+		        
+		        alert(data_page);
+		        $('#page-selection').bootpag({
+		            total: 2,
+		            page: 2,
+		            maxVisible: 5,
+		            leaps: true,
+		            firstLastUse: true,
+		            first: 'First',
+		            last: 'Last',
+		            wrapClass: 'pagination',
+		            activeClass: 'active',
+		            disabledClass: 'disabled',
+		            nextClass: 'next',
+		            prevClass: 'prev',
+		            lastClass: 'last',
+		            firstClass: 'first'
+		        }).on("page", function(event, /* page number here */ num){
+		             $("#content").html("Insert content"); // some ajax content loading...
+		             alert(num);
+		             $scope.category=$http.get('${pageContext.request.contextPath}/api/category/'+num)
+					  .success(function(data, status, headers, config) {
+						  //$scope.data_page = data.ROW_COUNT;
+						 // data_page = data.ROW_COUNT;
+					      $scope.category = data;
+					      console.log($scope.category);
+					      
+					    }).
+					    error(function(data, status, headers, config) {
+					    	console.log('load data error...');
+					    });*/
+    	</script> -->
 
 
 
