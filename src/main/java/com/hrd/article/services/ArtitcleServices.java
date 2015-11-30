@@ -19,11 +19,14 @@ public interface ArtitcleServices {
 	
 	public int toggleArticle(int id);
 	
-	public int getRow();
-	
+	public int getRow(String key);
+
+	public int getAllRow();
 	//i'm adding this method
 	public List<ArticleDTO> listArticles(int page,String key, int uid, int cid);
 	
 	public List<ArticleDTO> listArticles(int limit, int offset, String key);
+
+	
 	
 }
