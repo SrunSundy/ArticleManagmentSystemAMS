@@ -212,7 +212,7 @@
 				alert(imagech);
 				filename=$("#image").val().split('\\').pop();
 			}
-			alert(filename);
+			
 			
 			json={
 					id : id,
@@ -221,7 +221,7 @@
 	            	image : filename,
 	            	contents : $("#contents").val(),
 	            	user : { 
-	            		uid : 1
+	            		uid : uid
 	            	},
 	            	category : {
 	            		id : $("#category").val()
@@ -237,7 +237,6 @@
 	            success: function(data){ 
 	            	
 	            	uploadAImage();
-	            	
 	            	location.href=""+data.REDIRECT;
 	            },
 	            error: function(data){
