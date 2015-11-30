@@ -181,7 +181,7 @@
 						</div>
 						
 						<div class="data-block">
-							<textarea class="input-data" ng-show="dataStatus">{{masterSample | json}}</textarea>
+							<textarea class="input-data" ng-show="dataStatus" ng-model="test">{{masterSample | json}}</textarea>
 							<textarea class="resp-data">{{responseData | json}}</textarea>
 						</div>
 						
@@ -217,11 +217,11 @@
 					});
 					
 					if(type == "article") 
-						$scope.masterSample = $scope.articleSample;
-					else if(type == "user") 
-						$scope.masterSample = $scope.userSample;
+						$scope.test = angular.toJson($scope.articleSample);
+ 					else if(type == "user") 
+						$scope.test = angular.toJson($scope.userSample);
 					else 
-						$scope.masterSample = $scope.categorySample;
+						$scope.test = angular.toJson($scope.categorySample);
 					
 				};
 				
@@ -243,11 +243,14 @@
 				
 				$scope.sendData = function(){
 					
-					if($scope.method == "POST" || $scope.method == "PUT"){
+					$scope.json = angular.fromJson($scope.test);
+/* 					alert($scope.json);
+					alert($scope.json.title); */
+					 if($scope.method == "POST" || $scope.method == "PUT"){
 						$http({
 							method: $scope.method,
 							url: $scope.url,
-							data: JSON.stringify($scope.masterSample)
+							data: JSON.stringify($scope.json)
 						}).success(function(response){
 							$scope.responseData = response;
 						}).error(function(response){
@@ -262,7 +265,7 @@
 						}).error(function(response){
 							$scope.responseData = response;
 						});
-					}
+					} 
 					/*.then(function(response){
 						$scope.responseData = response;
 					}); //provide more info */
