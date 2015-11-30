@@ -114,16 +114,17 @@ span.dnfound{
 		displayPage(1);
 		getArticleRow();
 		function getArticleRow(){
+			var title=$("#searcharticle").val();
 			
 			$.ajax({
 				method : "GET",
-				url : "${pageContext.request.contextPath}/api/article/getrow/",
-				data:{
-					acontent : $("#searcharticle").val()
-				},
+				url : "${pageContext.request.contextPath}/api/article/getrow/"+title,
+				
 				success : function(data){
-					 dbrow=data.RESPONSE_DATA;				
+					 dbrow=data.RESPONSE_DATA;	
+					
 					var npage;
+					
 					var nps=dbrow/10;
 					
 					if(!(dbrow % rowshow==0)){
@@ -133,6 +134,7 @@ span.dnfound{
 						npage=nps;
 					}
 					numofpage=npage; 
+					
 				    $("#rowshow").html(dbrow+" records"); 
 					loadPagination();
 				}
@@ -286,7 +288,7 @@ span.dnfound{
 					tb+="<td><input onchange='updateStatus("+data[i].id+",0)' type='checkbox' checked/></td>";
 				}
 				
-				tb+="<td align='center'><form method='POST' action='${pageContext.request.contextPath}/admin/article'><button type='button'  data-toggle='modal' data-target='#myModal' class='btn btn-primary '  onclick=viewInfo("+data[i].id+")><span class='glyphicon glyphicon-pencil'></span></button>";
+				tb+="<td align='center'><form method='POST' action='${pageContext.request.contextPath}/admin/article'>";
 				tb+="<input type='hidden' value='"+data[i].id+"' name='id' /><button type='submit' class='btn btn-success' ><span class='glyphicon glyphicon-pencil'></span></button>";
 				tb+="<button type='button' class='btn btn-danger' onclick='deleteArticle("+data[i].id+")'><span class='glyphicon glyphicon-trash'></span></button> </form></td>";   
 				tb+="</tr>";
