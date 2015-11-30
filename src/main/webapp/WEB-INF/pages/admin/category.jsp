@@ -34,7 +34,7 @@
 
 	<div class="col-sm-12" ng-app="myApp" ng-controller="myCtrl" >
 	    <center>
-	    	<h1 style="font-weight:bold"> WELCOME CATEGORY PAGE</h1>
+	    	<h1 style="font-weight:bold"> WELCOME CATEGORY </h1>
 	    </center>
 		
 		
@@ -44,8 +44,11 @@
 <!-- 		<div id="content">Dynamic Content goes here</div>
     	<div id="page-selection">Pagination goes here</div> -->
 		
+		<fieldset>
+			<legend><span style="font-weight:bold;font-size:20px;">CATEGORY</span><span style="font-size:14px;"> Listing</span></legend>
+		</fieldset>
 		
-		<table class="table">
+		<table class="table table-hover">
 			    <tr style="background-color:#94a661;color:#eee">
 			    	<th> ID </th>
 			    	<th> NAME </th>

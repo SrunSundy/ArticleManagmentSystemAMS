@@ -29,7 +29,7 @@ table.tbstyle tr:nth-child(even){
 }
 table.tbstyle tr:first-child{
 	background:#9E9E9E;
-	height: 50px;
+	/*height: 50px;*/
 	color: white;
 }
 table.tbstyle tr.styleh{
@@ -77,6 +77,7 @@ span.dnfound{
 							<span class="searchresult "  style="">Result : <span id="rowshow"></span><span id="recordresult"></span></span>
 
 						</div>
+						<br/>
 						</div>
 					</div>
 					<div class="row">
@@ -289,7 +290,7 @@ span.dnfound{
 				}
 				
 				tb+="<td align='center'><form method='POST' action='${pageContext.request.contextPath}/admin/article'>";
-				tb+="<input type='hidden' value='"+data[i].id+"' name='id' /><button type='submit' class='btn btn-success' ><span class='glyphicon glyphicon-pencil'></span></button>";
+				tb+="<input type='hidden' value='"+data[i].id+"' name='id' /><button type='submit' class='btn btn-success' ><span class='glyphicon glyphicon-pencil'></span></button>&nbsp;";
 				tb+="<button type='button' class='btn btn-danger' onclick='deleteArticle("+data[i].id+")'><span class='glyphicon glyphicon-trash'></span></button> </form></td>";   
 				tb+="</tr>";
 				

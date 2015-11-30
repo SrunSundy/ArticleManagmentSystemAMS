@@ -80,6 +80,7 @@ span.searchresult {
 								</select> <span class="searchresult " style="">Result : <span
 									id="rowshow"></span><span id="recordresult"></span></span>
 							</div>
+							<br/>
 						</div>
 					</div>
 					<div class="row">
