@@ -38,7 +38,7 @@ public class ArticleAPI {
 		if(articles.isEmpty()){
 			map.put("STATUS", HttpStatus.OK.value());
 			map.put("MESSAGE", "ARTICLE NOT FOUND...");
-
+			map.put("RESPONSE_DATA",articles);
 			return new ResponseEntity<Map<String,Object>>
 							(map,HttpStatus.OK);
 
@@ -216,6 +216,7 @@ public class ArticleAPI {
 		if(rows==0){
 			map.put("STATUS", HttpStatus.OK.value());
 			map.put("MESSAGE", "ARTICLE HAS NO ROW...");
+			map.put("RESPONSE_DATA",rows);
 			return new ResponseEntity<Map<String,Object>>
 										(map,HttpStatus.OK);
 		}	
@@ -233,6 +234,7 @@ public class ArticleAPI {
 		if(rows==0){
 			map.put("STATUS", HttpStatus.OK.value());
 			map.put("MESSAGE", "ARTICLE HAS NO ROW...");
+			map.put("RESPONSE_DATA",rows);
 			return new ResponseEntity<Map<String,Object>>
 										(map,HttpStatus.OK);
 		}	
