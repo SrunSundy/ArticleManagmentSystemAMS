@@ -60,7 +60,7 @@
 							<li><i class="fa fa-area-chart"></i>Popular Articles</li>
 							<li ng-repeat="popular in populars">
 								<div class="a-popular-item">
-									<a href="detail/{{popular.id}}" target="_blank"><img src="{{popular.image}}"/></a>
+									<a href="detail/{{popular.id}}" target="_blank"><img src="${pageContext.request.contextPath}/images/{{popular.image}}"/></a>
 									<p><a href="detail/{{popular.id}}" target="_blank">{{popular.title}}</a></p>
 									<div class="clear"></div>
 								</div>
