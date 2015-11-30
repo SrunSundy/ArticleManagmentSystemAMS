@@ -43,7 +43,7 @@ body {
 
 i.fa.fa-search{
 	position:absolute;
-	top:7px;
+	top:6px;
 	color: #9E9A9A;
 	left:7px;
 }
@@ -83,7 +83,7 @@ i.fa.fa-search{
 }
 .nav-category li{
 	cursor:pointer;
-	padding: 1px 10px;
+	padding: 5px 10px;
 	text-transform:capital;
 	background-color:rgba(49, 134, 52, 0.57);
 	margin-left:4px;
