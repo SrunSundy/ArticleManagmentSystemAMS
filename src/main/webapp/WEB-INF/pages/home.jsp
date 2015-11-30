@@ -39,7 +39,7 @@
 								</div>
 								<div class="article-components">
 									<div class="article-image">
-										<a href="detail/{{article.id}}" target="_blank"><img src="{{article.image}}"/></a>
+										<a href="detail/{{article.id}}" target="_blank"><img src="${pageContext.request.contextPath}/images/{{article.image}}"/></a>
 									</div>
 									<div class="article-desc">
 											<h3><a href="detail/{{article.id}}" target="_blank">{{article.title}}</a></h3>
