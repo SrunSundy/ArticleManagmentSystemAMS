@@ -150,8 +150,14 @@
 	            url: "${pageContext.request.contextPath}/api/article/", 
 	            data : JSON.stringify(json),
 	            success: function(data){ 
-	            	alert(data);
-	            	uploadAImage();
+	            	if(data == null){
+	            		alert("insert failed");
+	            	}else{
+	            		uploadAImage();
+	            		alert("Record inserted");
+	            		
+	            	}
+	            	
 	            },
 	            error: function(data){
 	            	alert("Unsuccess" + data);
@@ -173,7 +179,7 @@
 				data : data1,
 				success:function(data){
 					
-					alert(1);
+					
 				}
 			});
 		}
