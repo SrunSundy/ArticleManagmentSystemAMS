@@ -242,6 +242,10 @@
 						$scope.imageStatus = true;
 					}
 					else if((method == "POST" || method == "PUT") && desc != "Upload"){
+						
+						if(desc == "Login"){
+							$scope.test = angular.toJson({uemail : "phearun@gmail.com", upassword : "12345"});
+						}
 						$scope.dataStatus = true;
 						$scope.imageStatus = false;						
 					}
