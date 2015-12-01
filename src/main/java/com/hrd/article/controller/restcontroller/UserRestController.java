@@ -198,6 +198,7 @@ public class UserRestController {
 				System.out.println("You are successfully uploaded file " + filename);
 				map.put("MESSAGE","UPLOAD IMAGE SUCCESS");
 				map.put("STATUS", HttpStatus.OK.value());
+				map.put("IMAGE", request.getContextPath() + "/images/" + filename);
 				return new ResponseEntity<Map<String,Object>>
 									(map, HttpStatus.OK);
 			}catch(Exception e){
