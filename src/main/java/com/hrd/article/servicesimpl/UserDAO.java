@@ -50,8 +50,8 @@ public class UserDAO implements UserServices {
 	}
 
 	public int editUser(@RequestBody UserDTO user) {
-		String sql="UPDATE tbuser SET uname=?,upassword=?,uemail=?,ugender=?,utype=?,ustatus=?,uimage=? WHERE uid=?";
-		Object[] obj={user.getUname(),user.getUpassword(),user.getUemail(),user.getUgender(),user.getUtype(),user.getUstatus(),user.getUimage(),user.getUid()};
+		String sql="UPDATE tbuser SET uname=?,uemail=?,ugender=?,utype=?,ustatus=?,uimage=? WHERE uid=?";
+		Object[] obj={user.getUname(),user.getUemail(),user.getUgender(),user.getUtype(),user.getUstatus(),user.getUimage(),user.getUid()};
 		return jdbcTemplate.update(sql,obj);
 	}
 
