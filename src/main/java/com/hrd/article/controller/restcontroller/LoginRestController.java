@@ -41,18 +41,16 @@ public class LoginRestController {
 			
 			System.out.println(session.getAttribute("userObj"));
 
-			map.put("MESSAGE", "SUCCESS");
+			map.put("MESSAGE", "LOGIN SUCCESS");
 			map.put("STATUS", HttpStatus.OK.value());
 			map.put("RESPONSE_DATA" , user);
-			map.put("REDIRECT", "admin/viewlistarticle");
 			return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 		}
 		
 		session.setAttribute("userObj", null );
-		map.put("MESSAGE", "FAIL");
+		map.put("MESSAGE", "LOGIN FAIL");
 		map.put("STATUS", HttpStatus.NOT_FOUND.value());
 		map.put("RESPONSE_DATA", null);
-		map.put("REDIRECT", null);
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		
 	}
