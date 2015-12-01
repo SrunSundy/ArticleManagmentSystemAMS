@@ -155,7 +155,7 @@
 									<th>DESCRIPTION</th>
 								</tr>
 								<tr ng-repeat="api in apiDocuments">
-									<td><label>{{api.url}}</label><button ng-click="copy(api.url, api.method)">t r y</button></td>
+									<td><label>{{api.url}}</label><button ng-click="copy(api.description, api.url, api.method)">t r y</button></td>
 									<td><label>{{api.method}}</label></td>
 									<td><label>{{api.description}}</label></td>
 								</tr>
@@ -181,6 +181,11 @@
 						</div>
 						
 						<div class="data-block">
+							<form id="frm-upload" enctype="multipart/form-data">
+								<input type="file" id="file" name="file" ng-show="imageStatus"/> 
+							</form>
+							
+							
 							<textarea class="input-data" ng-show="dataStatus" ng-model="test">{{masterSample | json}}</textarea>
 							<textarea class="resp-data">{{responseData | json}}</textarea>
 						</div>
@@ -204,6 +209,7 @@
 				$scope.method = "GET";
 				
 				$scope.dataStatus = false;
+				$scope.imageStatus = false;
 				
 				$scope.masterSample = {};
 				
@@ -227,15 +233,24 @@
 				
 				$scope.showTable('article');
 				
-				$scope.copy = function(url, method){
+				$scope.copy = function(desc, url, method){
+					
 					
 					$scope.responseData = "RESPONSE_DATA";
-					
-					if(method == "POST" || method == "PUT")
-						$scope.dataStatus = true;
-					else
+					if(method == "POST" && desc == "Upload"){
 						$scope.dataStatus = false;
+						$scope.imageStatus = true;
+					}
+					else if((method == "POST" || method == "PUT") && desc != "Upload"){
+						$scope.dataStatus = true;
+						$scope.imageStatus = false;						
+					}
+					else{
+						$scope.dataStatus = false;
+						$scope.imageStatus = false;						
+					}
 					
+					$scope.desc = desc;
 					$scope.method = method;
 					$scope.url = url;
 				};
@@ -244,9 +259,22 @@
 				$scope.sendData = function(){
 					
 					$scope.json = angular.fromJson($scope.test);
-/* 					alert($scope.json);
-					alert($scope.json.title); */
-					 if($scope.method == "POST" || $scope.method == "PUT"){
+					 if($scope.method == "POST" && $scope.desc == "Upload"){
+						
+						var frmdata = new FormData(document.getElementById("frm-upload"));
+						$http.post(
+							$scope.url,
+							frmdata,{
+								transformRequest : angular.identity,
+								headers : { 'Content-Type' : undefined }								
+							}
+						).success(function(response){
+							$scope.responseData = response;
+						}).error(function(response){
+							$scope.responseData = response;
+						});
+						 
+					 }else if(($scope.method == "POST" || $scope.method == "PUT") && $scope.desc !="Upload"){
 						$http({
 							method: $scope.method,
 							url: $scope.url,
