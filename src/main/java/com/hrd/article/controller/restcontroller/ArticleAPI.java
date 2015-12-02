@@ -97,13 +97,14 @@ public class ArticleAPI {
 		System.err.println("HELLO");
 		if(!file.isEmpty()){
 			try{
-				UUID uuid = UUID.randomUUID();
+				
 	            String originalFilename = file.getOriginalFilename(); 
 	            String extension = originalFilename.substring(originalFilename.lastIndexOf(".")+1);
-	            String randomUUIDFileName = uuid.toString();
 	            
-	            String filename = originalFilename;
-				byte[] bytes = file.getBytes();
+	            String filename =UUID.randomUUID()+"."+extension;
+	            System.out.println("Filename : " + filename);
+				
+	            byte[] bytes = file.getBytes();
 
 				// creating the directory to store file
 				String savePath = request.getSession().getServletContext().getRealPath("/resources/images/");

@@ -172,12 +172,13 @@ public class UserRestController {
 		Map<String, Object> map  = new HashMap<String, Object>();
 		if(!file.isEmpty()){
 			try{
-				UUID uuid = UUID.randomUUID();
-	            String originalFilename = file.getOriginalFilename(); 
+				
+				String originalFilename = file.getOriginalFilename(); 
 	            String extension = originalFilename.substring(originalFilename.lastIndexOf(".")+1);
-	            String randomUUIDFileName = uuid.toString();
 	            
-	            String filename = originalFilename;
+	            String filename =UUID.randomUUID()+"."+extension;
+	            System.out.println("Filename : " + filename);
+	            
 				byte[] bytes = file.getBytes();
 
 				// creating the directory to store file
